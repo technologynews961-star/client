@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BG's Beauty and Hair Salon - Professional Hair Designer</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198631/fevicon_ch0p48.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght=0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        salon: {
+                            pink: '#DB2777',       // Vibrant Pink-600 accent
+                            hotpink: '#EC4899',    // Hot Pink-500 hover states
+                            softpink: '#FFF0F3',   // Beautiful pastel pink background tint
+                            blush: '#FCE7F3',      // Soft blush pink accents
+                            darkpink: '#9D174D',   // Elegant deep magenta
+                            charcoal: '#1F2937'    // High contrast slate charcoal for extreme legibility
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFF0F3;
+        }
+        /* Custom scrollbar for premium touch */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF0F3;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F472B6;
+            border-radius: 10px;
+        }
+        /* Glassmorphism utility for sticky pink header */
+        .glass-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        /* Pulse booking button effect */
+        @keyframes subtlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .pulse-btn {
+            animation: subtlePulse 3.5s infinite ease-in-out;
+        }
+        /* Hide scrollbars for sliders while allowing momentum scrolling */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased overflow-x-hidden">
+
+    <!-- TOP NOTIFICATION STRIP -->
+    <div class="bg-salon-pink text-white text-center py-2 px-4 text-xs font-semibold tracking-wider flex items-center justify-center gap-2">
+        <i class="fa-solid fa-sparkles animate-pulse text-[10px]"></i>
+        <span>ALL DAYS OPEN | 10:30 AM – 8:00 PM</span>
+        <i class="fa-solid fa-sparkles animate-pulse text-[10px]"></i>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="glass-header sticky top-0 z-40 text-salon-charcoal transition-all duration-300 border-b border-salon-blush shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <!-- Brand Logo & Title -->
+            <a href="#" class="flex items-center gap-3">
+                <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198632/logo_3_cd7dae.png" alt="BG's Salon Logo" class="h-12 w-12 rounded-full object-cover border border-salon-pink shadow-sm" onerror="this.src='https://placehold.co/100x100/db2777/ffffff?text=BGs'">
+                <div>
+                    <h1 class="font-serif font-bold text-lg md:text-xl tracking-tight leading-none text-salon-pink">BG's Salon</h1>
+                    <span class="text-[10px] text-slate-500 tracking-widest uppercase font-semibold">Professional Hair Designer</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Items -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <a href="#about" class="text-salon-charcoal hover:text-salon-pink transition-colors">About</a>
+                <a href="#services" class="text-salon-charcoal hover:text-salon-pink transition-colors">Services</a>
+                <a href="#packages" class="text-salon-charcoal hover:text-salon-pink transition-colors">Pricing Offers</a>
+                <a href="#gallery" class="text-salon-charcoal hover:text-salon-pink transition-colors">Gallery</a>
+                <a href="#reviews" class="text-salon-charcoal hover:text-salon-pink transition-colors">Reviews</a>
+                <a href="#contact" class="text-salon-charcoal hover:text-salon-pink transition-colors">Location</a>
+            </nav>
+
+            <!-- Quick Action WhatsApp Button -->
+            <div class="flex items-center gap-2">
+                <a href="https://wa.me/918779058945?text=Hi%20BG's%20Beauty%20and%20Hair%20Salon!%20I'd%20like%20to%20book%20an%20appointment." target="_blank" class="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white px-4 py-2 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-md transition-all active:scale-95">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span class="hidden sm:inline">Book on WhatsApp</span>
+                    <span class="sm:hidden">Book Now</span>
+                </a>
+                
+                <!-- Mobile Navigation Toggle -->
+                <button id="mobileMenuBtn" class="md:hidden text-salon-charcoal hover:text-salon-pink p-1 text-xl focus:outline-none" aria-label="Toggle Menu">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Slider Overlay -->
+        <div id="mobileMenu" class="hidden absolute top-full left-0 w-full bg-white border-b border-salon-blush py-5 px-6 flex flex-col gap-4 animate-fadeIn shadow-lg transition-all">
+            <a href="#about" class="text-slate-800 hover:text-salon-pink font-semibold py-1 transition-colors">About Us</a>
+            <a href="#services" class="text-slate-800 hover:text-salon-pink font-semibold py-1 transition-colors">Our Services</a>
+            <a href="#packages" class="text-slate-800 hover:text-salon-pink font-semibold py-1 transition-colors">Special Offers</a>
+            <a href="#gallery" class="text-slate-800 hover:text-salon-pink font-semibold py-1 transition-colors">Transformations Gallery</a>
+            <a href="#reviews" class="text-slate-800 hover:text-salon-pink font-semibold py-1 transition-colors">Customer Reviews</a>
+            <a href="#contact" class="text-slate-800 hover:text-salon-pink font-semibold py-1 transition-colors">Address & Contact</a>
+            <hr class="border-slate-100 my-1">
+            <div class="flex flex-col gap-2">
+                <a href="tel:08779058945" class="w-full bg-salon-softpink border border-salon-pink/30 hover:border-salon-pink text-salon-pink text-center py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-solid fa-phone"></i>
+                    Call 08779058945
+                </a>
+                <a href="https://maps.app.goo.gl/1iaQ3MGBQoPSx96N6" target="_blank" class="w-full bg-slate-100 text-slate-800 text-center py-2.5 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-solid fa-location-dot text-salon-pink"></i>
+                    Get Directions
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-white text-salon-charcoal pt-10 pb-20 md:py-24 overflow-hidden">
+        <!-- Abstract glowing pink shapes in background -->
+        <div class="absolute inset-0 opacity-40 pointer-events-none">
+            <div class="absolute top-1/4 right-0 w-80 h-80 rounded-full bg-pink-100 blur-3xl"></div>
+            <div class="absolute bottom-1/4 left-0 w-80 h-80 rounded-full bg-pink-50 blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+            <!-- Left Side Text & Accents -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <!-- Premium Tag badge -->
+                <div class="inline-flex items-center gap-2 bg-salon-softpink border border-salon-pink/20 px-4 py-1.5 rounded-full text-xs text-salon-darkpink font-bold tracking-wide mx-auto lg:mx-0 shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-salon-pink animate-ping"></span>
+                    <span>Professional Hair Designer</span>
+                </div>
+
+                <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-slate-900">
+                    BG's Beauty & <br class="hidden md:inline">
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-salon-pink via-hotpink to-salon-darkpink">Hair Salon</span>
+                </h1>
+                
+                <p class="text-slate-600 text-sm md:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                    Experience elite styling and clinical skin solutions designed to rejuvenate your beauty. Located in Pant Nagar, Ghatkopar East, dedicated to giving you perfect hair makeovers, flawless skin glow, and professional training academies.
+                </p>
+
+                <!-- Quick Review/Rating Card -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 py-1">
+                    <div class="flex items-center gap-1.5 bg-salon-softpink border border-salon-pink/20 px-3 py-2 rounded-xl text-sm shadow-sm">
+                        <span class="font-bold text-salon-pink text-base">4.5</span>
+                        <div class="flex text-amber-500 text-xs gap-0.5">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                    </div>
+                    <span class="text-slate-500 text-xs font-semibold">Based on 36 Google Verified Reviews</span>
+                </div>
+
+                <!-- CTA Actions Group -->
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                    <button onclick="openBookingModal('General Salon Inquiry')" class="pulse-btn w-full sm:w-auto bg-gradient-to-r from-salon-pink to-hotpink hover:from-hotpink hover:to-salon-pink text-white px-8 py-3.5 rounded-xl font-extrabold text-sm tracking-wide shadow-lg shadow-salon-pink/20 flex items-center justify-center gap-2 transition-all active:scale-95">
+                        <i class="fa-solid fa-calendar-check text-base"></i>
+                        Book Appointment
+                    </button>
+                    <a href="#packages" class="w-full sm:w-auto border border-salon-pink/30 hover:bg-salon-softpink hover:border-salon-pink text-salon-pink text-center px-8 py-3.5 rounded-xl text-sm font-bold transition-all shadow-sm">
+                        View Price List
+                    </a>
+                </div>
+
+                <!-- Fast Info Grid -->
+                <div class="grid grid-cols-3 gap-3 pt-6 border-t border-pink-100 max-w-md mx-auto lg:mx-0">
+                    <div class="text-center lg:text-left">
+                        <p class="text-xs text-slate-500 font-semibold">Timings</p>
+                        <p class="text-xs font-extrabold text-slate-900">10:30am - 8pm</p>
+                    </div>
+                    <div class="text-center lg:text-left border-x border-pink-100 px-2">
+                        <p class="text-xs text-slate-500 font-semibold">Availability</p>
+                        <p class="text-xs font-extrabold text-slate-900">All Days Open</p>
+                    </div>
+                    <div class="text-center lg:text-left">
+                        <p class="text-xs text-slate-500 font-semibold">Contact</p>
+                        <p class="text-xs font-extrabold text-slate-900">08779058945</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side Feature Promo Card -->
+            <div class="lg:col-span-5 relative mt-6 lg:mt-0">
+                <div class="relative bg-gradient-to-br from-white to-salon-softpink border border-salon-blush rounded-2xl p-6 shadow-xl overflow-hidden group">
+                    <!-- Elegant pink strip line -->
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-salon-pink to-hotpink"></div>
+                    
+                    <!-- Decorative BG indicator -->
+                    <div class="absolute -right-10 -bottom-10 text-pink-200/40 text-9xl font-serif select-none pointer-events-none">BG</div>
+
+                    <h3 class="font-serif text-xl font-bold mb-4 text-salon-pink flex items-center gap-2">
+                        <i class="fa-solid fa-crown text-amber-500"></i> Premium Treatments
+                    </h3>
+                    
+                    <p class="text-xs text-slate-600 mb-6 leading-relaxed font-medium">
+                        Enter a pristine sanctuary where every treatment is curated to enhance your personal aesthetic.
+                    </p>
+
+                    <!-- Interactive Quick Highlights inside card -->
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-salon-pink/10 flex items-center justify-center text-[11px] text-salon-pink font-bold mt-0.5">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">Professional Hair Designing</h4>
+                                <p class="text-[11px] text-slate-500">Keratin, Botox, Balayage, Nano straightening systems.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-salon-pink/10 flex items-center justify-center text-[11px] text-salon-pink font-bold mt-0.5">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">Advanced Skin Aesthetics</h4>
+                                <p class="text-[11px] text-slate-500">Vortex-hydration Hydra Facials and crystal body polishes.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="flex-shrink-0 w-6 h-6 rounded-full bg-salon-pink/10 flex items-center justify-center text-[11px] text-salon-pink font-bold mt-0.5">
+                                <i class="fa-solid fa-check"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-800">Professional Academy</h4>
+                                <p class="text-[11px] text-slate-500">Certified hands-on training for Hair & Beauty Careers.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA to quickly send WhatsApp -->
+                    <div class="mt-8">
+                        <a href="https://wa.me/918779058945?text=Hi!%20I'm%20interested%20in%20your%20hair%20and%20skin%20treatments." target="_blank" class="block w-full text-center bg-white border border-salon-pink hover:bg-salon-pink hover:text-white text-salon-pink text-xs font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-brands fa-whatsapp text-emerald-500 text-sm"></i>
+                            Send Quick WhatsApp Query
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="py-16 bg-salon-softpink scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-xl mx-auto mb-12">
+                <span class="text-xs font-extrabold tracking-widest text-salon-pink uppercase bg-pink-100 px-3 py-1 rounded-full">Menu Catalog</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-extrabold text-slate-950 mt-2">Specialized Salon Services</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-salon-pink to-hotpink mx-auto mt-4 rounded-full"></div>
+                <p class="text-slate-600 text-sm mt-3 font-medium">Explore premium solutions tailored to absolute perfection by expert hair designers.</p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Service Card 1 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-salon-blush hover:border-salon-pink transition-all relative overflow-hidden group hover:-translate-y-1 duration-300">
+                    <span class="absolute top-0 left-0 w-2 h-full bg-salon-pink"></span>
+                    <div class="text-salon-pink text-2xl mb-4">
+                        <i class="fa-solid fa-droplet-slash"></i>
+                    </div>
+                    <h3 class="font-serif text-lg font-bold text-slate-900 mb-2">Hair & Skin Treatment</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed font-medium">Target dryness, scalp irritation, cellular aging, and sun damage with clinically approved repair treatments.</p>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-salon-blush hover:border-salon-pink transition-all relative overflow-hidden group hover:-translate-y-1 duration-300">
+                    <span class="absolute top-0 left-0 w-2 h-full bg-hotpink"></span>
+                    <div class="text-salon-pink text-2xl mb-4">
+                        <i class="fa-solid fa-spa"></i>
+                    </div>
+                    <h3 class="font-serif text-lg font-bold text-slate-900 mb-2">Ayurvedic Head Massage</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed font-medium">De-stress deeply with high-quality traditional oil formulations that boost circulation, stimulate follicles, and soothe nerves.</p>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-salon-blush hover:border-salon-pink transition-all relative overflow-hidden group hover:-translate-y-1 duration-300">
+                    <span class="absolute top-0 left-0 w-2 h-full bg-salon-pink"></span>
+                    <div class="text-salon-pink text-2xl mb-4">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 class="font-serif text-lg font-bold text-slate-900 mb-2">Hydra Facial</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed font-medium">Exfoliate, deeply vacuum pores, and flood skin with powerful custom nutrient serums for immediate glass-like skin glow.</p>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-salon-blush hover:border-salon-pink transition-all relative overflow-hidden group hover:-translate-y-1 duration-300">
+                    <span class="absolute top-0 left-0 w-2 h-full bg-hotpink"></span>
+                    <div class="text-salon-pink text-2xl mb-4">
+                        <i class="fa-solid fa-hourglass-end"></i>
+                    </div>
+                    <h3 class="font-serif text-lg font-bold text-slate-900 mb-2">Anti-Ageing Facial</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed font-medium">Tighten loose skin, soften fine wrinkles, and activate collagen fibers using firming massages and nutrient masks.</p>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-salon-blush hover:border-salon-pink transition-all relative overflow-hidden group hover:-translate-y-1 duration-300">
+                    <span class="absolute top-0 left-0 w-2 h-full bg-salon-pink"></span>
+                    <div class="text-salon-pink text-2xl mb-4">
+                        <i class="fa-solid fa-gem"></i>
+                    </div>
+                    <h3 class="font-serif text-lg font-bold text-slate-900 mb-2">Crystal Pedicure</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed font-medium">Exfoliate and deep cleanse feet using relaxing mineral crystal crystals, keeping heels smooth and soft.</p>
+                </div>
+
+                <!-- Service Card 6 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-salon-blush hover:border-salon-pink transition-all relative overflow-hidden group hover:-translate-y-1 duration-300">
+                    <span class="absolute top-0 left-0 w-2 h-full bg-hotpink"></span>
+                    <div class="text-salon-pink text-2xl mb-4">
+                        <i class="fa-solid fa-circle-nodes"></i>
+                    </div>
+                    <h3 class="font-serif text-lg font-bold text-slate-900 mb-2">Body Polishing</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed font-medium">Luxe full-body scrub and glow polishing. Highly recommended for weddings, festivals, and special occasions.</p>
+                </div>
+
+                <!-- Service Card 7 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-salon-blush hover:border-salon-pink transition-all relative overflow-hidden group hover:-translate-y-1 duration-300">
+                    <span class="absolute top-0 left-0 w-2 h-full bg-salon-pink"></span>
+                    <div class="text-salon-pink text-2xl mb-4">
+                        <i class="fa-solid fa-scissors"></i>
+                    </div>
+                    <h3 class="font-serif text-lg font-bold text-slate-900 mb-2">Hair Balayage</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed font-medium">Expert hand-painted global highlight designs offering seamless, sun-kissed, natural-looking dimension.</p>
+                </div>
+
+                <!-- Service Card 8 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-salon-blush hover:border-salon-pink transition-all relative overflow-hidden group hover:-translate-y-1 duration-300">
+                    <span class="absolute top-0 left-0 w-2 h-full bg-hotpink"></span>
+                    <div class="text-salon-pink text-2xl mb-4">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="font-serif text-lg font-bold text-slate-900 mb-2">Keratin / Botox / Nano</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed font-medium">Premium frizz-elimination and intense structural shine reconstruction therapies for silkier, smoother hair.</p>
+                </div>
+
+                <!-- Service Card 9 -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-salon-blush hover:border-salon-pink transition-all relative overflow-hidden group hover:-translate-y-1 duration-300">
+                    <span class="absolute top-0 left-0 w-2 h-full bg-salon-pink"></span>
+                    <div class="text-salon-pink text-2xl mb-4">
+                        <i class="fa-solid fa-person-bridal-shower"></i>
+                    </div>
+                    <h3 class="font-serif text-lg font-bold text-slate-900 mb-2">Bridal Packages & Makeup</h3>
+                    <p class="text-slate-600 text-xs leading-relaxed font-medium">Elegant pre-bridal skin packages and bespoke wedding day hair styling/makeup designed to make you sparkle.</p>
+                </div>
+            </div>
+
+            <!-- Academy & Course Highlight Panel -->
+            <div id="about" class="mt-12 bg-gradient-to-r from-salon-pink to-hotpink text-white rounded-2xl p-6 md:p-8 shadow-md flex flex-col md:flex-row items-center justify-between gap-6 scroll-mt-20">
+                <div>
+                    <span class="bg-white/20 border border-white/30 text-white px-3.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest">Certified Academy</span>
+                    <h3 class="font-serif text-2xl font-bold mt-2">Learn Professional Hair & Beauty Courses</h3>
+                    <p class="text-pink-100 text-xs mt-1.5 font-medium max-w-xl">Get trained directly by BG's leading hair designers in Ghatkopar East. Kickstart your career with fully certified, expert-led practical modules.</p>
+                </div>
+                <button onclick="openBookingModal('Hair / Beauty Course')" class="bg-white hover:bg-salon-softpink text-salon-pink px-6 py-3.5 rounded-xl text-xs font-extrabold transition-all whitespace-nowrap active:scale-95 flex items-center gap-2 shadow-sm">
+                    Enquire on WhatsApp <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PRICING PACKAGES SECTION -->
+    <section id="packages" class="py-16 bg-white scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-xl mx-auto mb-12">
+                <span class="text-xs font-extrabold tracking-widest text-salon-pink uppercase bg-pink-100 px-3 py-1 rounded-full">Best Rates & Combo Deals</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-extrabold text-slate-950 mt-2">Exclusive Promo Packages</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-salon-pink to-hotpink mx-auto mt-4 rounded-full"></div>
+                <p class="text-slate-600 text-sm mt-3 font-medium">Curated combinations designed for modern grooming and major savings.</p>
+            </div>
+
+            <!-- Packages Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Package 1: 599 -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-salon-blush hover:border-salon-pink relative shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-pink-100 text-salon-pink text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">GROOMING</span>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 line-through">₹1,200</span>
+                                <div class="text-3xl font-extrabold text-slate-900 font-serif">₹599</div>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-slate-950 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-face-smile text-salon-pink"></i> Starter Grooming Combo
+                        </h3>
+                        <ul class="space-y-3 text-xs text-slate-700 font-semibold border-t border-slate-100 pt-4 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Eyebrows Threading</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Professional Face Bleach</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Deep Skin Clean Up</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Smooth Hand Waxing</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Under Arms Waxing</li>
+                        </ul>
+                    </div>
+                    <button onclick="openBookingModal('Starter Grooming Combo (₹599)')" class="w-full bg-slate-900 hover:bg-salon-pink text-white py-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> Book Package
+                    </button>
+                </div>
+
+                <!-- Package 2: 999 (Gold Glow) -->
+                <div class="bg-salon-softpink rounded-2xl p-6 border-2 border-salon-pink relative shadow-md flex flex-col justify-between overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-salon-pink text-white text-[9px] font-extrabold px-3.5 py-1.5 rounded-bl-xl uppercase tracking-widest">MOST POPULAR</div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">GOLD SPA GLOW</span>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 line-through">₹2,400</span>
+                                <div class="text-3xl font-extrabold text-slate-900 font-serif">₹999</div>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-slate-950 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-crown text-amber-500"></i> Golden Glow Spa Card
+                        </h3>
+                        <ul class="space-y-3 text-xs text-slate-700 font-semibold border-t border-salon-pink/20 pt-4 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Eyebrows Styling</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Gold Face Bleach & Neck Bleach</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Premium Gold or Whitening Facial</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Hand Wax & Under Arms</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Leg Waxing</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Therapeutic Back Massage</li>
+                        </ul>
+                    </div>
+                    <button onclick="openBookingModal('Golden Glow Spa Card (₹999)')" class="w-full bg-gradient-to-r from-salon-pink to-hotpink text-white py-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-md">
+                        <i class="fa-brands fa-whatsapp text-base"></i> Book Package Now
+                    </button>
+                </div>
+
+                <!-- Package 3: 1499 -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-salon-blush hover:border-salon-pink relative shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-pink-100 text-salon-pink text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">ELITE SPECIAL</span>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 line-through">₹3,200</span>
+                                <div class="text-3xl font-extrabold text-slate-900 font-serif">₹1,499</div>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-slate-950 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-wine-glass-empty text-purple-600"></i> Wine Polish & Renew
+                        </h3>
+                        <ul class="space-y-3 text-xs text-slate-700 font-semibold border-t border-slate-100 pt-4 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Premium Wine Bleach & Neck Bleach</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Skin Polish Facial (Cell Renewal)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Blast Dry Hair styling</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Eyebrows Correction</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Express Grooming Manicure</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Relaxation Back Massage</li>
+                        </ul>
+                    </div>
+                    <button onclick="openBookingModal('Wine Polish & Renew Pack (₹1499)')" class="w-full bg-slate-900 hover:bg-salon-pink text-white py-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> Book Package
+                    </button>
+                </div>
+
+                <!-- Package 4: 1599 -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-salon-blush hover:border-salon-pink relative shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-pink-100 text-salon-pink text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">HAIR & WAX</span>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 line-through">₹3,000</span>
+                                <div class="text-3xl font-extrabold text-slate-900 font-serif">₹1,599</div>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-slate-950 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-feather-pointed text-salon-pink"></i> Protein Therapy Combo
+                        </h3>
+                        <ul class="space-y-3 text-xs text-slate-700 font-semibold border-t border-slate-100 pt-4 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Deep Protein Hair Treatment</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Imported Premium Hand Waxing</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Imported Under Arms Waxing</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Imported Smooth Leg Waxing</li>
+                        </ul>
+                    </div>
+                    <button onclick="openBookingModal('Protein Therapy Combo (₹1599)')" class="w-full bg-slate-900 hover:bg-salon-pink text-white py-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> Book Package
+                    </button>
+                </div>
+
+                <!-- Package 5: 999 L'Oreal -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-salon-blush hover:border-salon-pink relative shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-pink-100 text-salon-pink text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">HAIR STYLE SPECIAL</span>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 line-through">₹2,000</span>
+                                <div class="text-3xl font-extrabold text-slate-900 font-serif">₹999</div>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-slate-950 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-scissors text-rose-500"></i> L'Oreal Touch-Up & Cut
+                        </h3>
+                        <ul class="space-y-3 text-xs text-slate-700 font-semibold border-t border-slate-100 pt-4 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> L'Oreal Hair Color (1-inch Touch up)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Professional Manicure</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> <strong class="text-pink-600">FREE</strong> Designer Hair Cut</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Professional Blast Dry Styling</li>
+                        </ul>
+                    </div>
+                    <button onclick="openBookingModal('L\'Oreal Touch-Up & Cut (₹999)')" class="w-full bg-slate-900 hover:bg-salon-pink text-white py-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> Book Package
+                    </button>
+                </div>
+
+                <!-- Package 6: 999 Hair Spa -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-salon-blush hover:border-salon-pink relative shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-pink-100 text-salon-pink text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">HAIR RESTORE</span>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 line-through">₹2,200</span>
+                                <div class="text-3xl font-extrabold text-slate-900 font-serif">₹999</div>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-slate-950 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-droplet text-blue-500"></i> Absolute Hair Spa Combo
+                        </h3>
+                        <ul class="space-y-3 text-xs text-slate-700 font-semibold border-t border-slate-100 pt-4 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Nourishing Hair Spa</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Active Vite Treatment Ampoule</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Relaxing Wash & Blast Dry Styling</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Clear Hand Bleach</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Deep Back Bleach</li>
+                        </ul>
+                    </div>
+                    <button onclick="openBookingModal('Absolute Hair Spa Combo (₹999)')" class="w-full bg-slate-900 hover:bg-salon-pink text-white py-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> Book Package
+                    </button>
+                </div>
+
+                <!-- Package 7: 3599 -->
+                <div class="bg-salon-softpink rounded-2xl p-6 border-2 border-salon-pink relative shadow-md flex flex-col justify-between overflow-hidden group">
+                    <div class="absolute top-0 right-0 bg-salon-pink text-white text-[9px] font-extrabold px-3.5 py-1.5 rounded-bl-xl uppercase tracking-widest">PREMIUM HAIR</div>
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">INTENSIVE STRAIGHTENING</span>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 line-through">₹6,000</span>
+                                <div class="text-3xl font-extrabold text-slate-900 font-serif">₹3,599</div>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-slate-950 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-wand-magic text-purple-500"></i> Hair Straightening / Smoothing
+                        </h3>
+                        <ul class="space-y-3 text-xs text-slate-700 font-semibold border-t border-salon-pink/20 pt-4 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Complete Straightening OR Intensive Smoothing</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> 1 Post-treatment Wash absolute <strong class="text-pink-600">FREE</strong></li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Complimentary Styling consultation</li>
+                        </ul>
+                    </div>
+                    <button onclick="openBookingModal('Hair Straightening / Smoothing Combo (₹3599)')" class="w-full bg-slate-900 hover:bg-salon-pink text-white py-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-md">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> Book Package
+                    </button>
+                </div>
+
+                <!-- Package 8: 799 O3+ -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-salon-blush hover:border-salon-pink relative shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-pink-100 text-salon-pink text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">SKIN SPECIAL</span>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 line-through">₹1,800</span>
+                                <div class="text-3xl font-extrabold text-slate-900 font-serif">₹799</div>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-slate-950 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-bolt-lightning text-yellow-500"></i> O3+ Refresh Glow Pack
+                        </h3>
+                        <ul class="space-y-3 text-xs text-slate-700 font-semibold border-t border-slate-100 pt-4 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> O3+ Advanced Skin Clean Up</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Face Bleach & Neck Bleach</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> DTan Intensive Manicure</li>
+                        </ul>
+                    </div>
+                    <button onclick="openBookingModal('O3+ Refresh Glow Pack (₹799)')" class="w-full bg-slate-900 hover:bg-salon-pink text-white py-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> Book Package
+                    </button>
+                </div>
+
+                <!-- Package 9: 799 Wax Bleach -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-salon-blush hover:border-salon-pink relative shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-pink-100 text-salon-pink text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">SMOOTH TOUCH</span>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 line-through">₹1,600</span>
+                                <div class="text-3xl font-extrabold text-slate-900 font-serif">₹799</div>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-lg font-bold text-slate-950 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-hand-holding-heart text-pink-500"></i> Smooth Hands & Feet
+                        </h3>
+                        <ul class="space-y-3 text-xs text-slate-700 font-semibold border-t border-slate-100 pt-4 mb-6">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Deep Skin Hand Bleach</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> Deep Skin Leg Bleach</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-salon-pink text-sm"></i> DTan Premium Pedicure</li>
+                        </ul>
+                    </div>
+                    <button onclick="openBookingModal('Smooth Hands & Feet (₹799)')" class="w-full bg-slate-900 hover:bg-salon-pink text-white py-3.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> Book Package
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Single Add-On Highlight Block -->
+            <div class="mt-12 text-center">
+                <div class="inline-block bg-pink-50 border border-salon-pink/20 px-6 py-5 rounded-2xl shadow-sm">
+                    <span class="text-xs font-extrabold text-salon-pink uppercase tracking-widest block mb-1">🔥 EXTRA POPULAR ADD-ON</span>
+                    <p class="text-sm font-extrabold text-slate-900">
+                        💇‍♀️ Premium Global Highlights: Just <span class="text-salon-pink font-serif text-lg">₹149</span> Only Per Strip!
+                    </p>
+                    <button onclick="openBookingModal('Highlight Per Strip (₹149/strip)')" class="text-xs font-bold text-salon-pink underline hover:text-salon-darkpink mt-1.5 block mx-auto transition-colors">
+                        Add to my Appointment <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section id="gallery" class="py-16 bg-white border-t border-salon-blush scroll-mt-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-xl mx-auto mb-10">
+                <span class="text-xs font-extrabold tracking-widest text-salon-pink uppercase bg-pink-100 px-3 py-1 rounded-full">Portfolio Showcase</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-extrabold text-slate-950 mt-2">Our Recent Work Transformations</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-salon-pink to-hotpink mx-auto mt-4 rounded-full"></div>
+                <p class="text-slate-600 text-sm mt-3 font-medium">Enjoy our live scroll of actual results delivered by our professional hair designers.</p>
+            </div>
+
+            <!-- Auto-sliding Gallery Wrapper with Arrow Indicators -->
+            <div class="relative px-2">
+                <!-- Navigation Arrows -->
+                <button id="prevGalleryBtn" class="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-salon-pink/90 hover:bg-salon-pink text-white w-9 h-9 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all focus:outline-none shadow-md">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button id="nextGalleryBtn" class="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-salon-pink/90 hover:bg-salon-pink text-white w-9 h-9 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all focus:outline-none shadow-md">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+                <!-- Slider Container -->
+                <div id="gallerySlider" class="flex gap-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar py-4 scroll-smooth">
+                    
+                    <!-- Gallery Item 1 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198156/WhatsApp_Image_2026-06-23_at_12.28.45_PM_11_brws6w.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198156/WhatsApp_Image_2026-06-23_at_12.28.45_PM_11_brws6w.jpg" alt="Hair Makeover" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 2 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198156/WhatsApp_Image_2026-06-23_at_12.28.45_PM_1_jiv0ai.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198156/WhatsApp_Image_2026-06-23_at_12.28.45_PM_1_jiv0ai.jpg" alt="Luxe Treatment" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 3 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198156/WhatsApp_Image_2026-06-23_at_12.28.45_PM_10_zg2ois.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198156/WhatsApp_Image_2026-06-23_at_12.28.45_PM_10_zg2ois.jpg" alt="Hair Design" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 4 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198157/WhatsApp_Image_2026-06-23_at_12.28.45_PM_2_utubd6.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198157/WhatsApp_Image_2026-06-23_at_12.28.45_PM_2_utubd6.jpg" alt="Skin Glowing Facials" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 5 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198156/WhatsApp_Image_2026-06-23_at_12.28.44_PM_locclk.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198156/WhatsApp_Image_2026-06-23_at_12.28.44_PM_locclk.jpg" alt="Premium Nails & Spa" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 6 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198157/WhatsApp_Image_2026-06-23_at_12.28.45_PM_xhpt9l.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198157/WhatsApp_Image_2026-06-23_at_12.28.45_PM_xhpt9l.jpg" alt="Bridal Hair and Drapes" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 7 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198158/WhatsApp_Image_2026-06-23_at_12.28.45_PM_8_twro5q.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198158/WhatsApp_Image_2026-06-23_at_12.28.45_PM_8_twro5q.jpg" alt="Creative Highlights" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 8 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198158/WhatsApp_Image_2026-06-23_at_12.28.45_PM_4_cwofsg.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198158/WhatsApp_Image_2026-06-23_at_12.28.45_PM_4_cwofsg.jpg" alt="Hair Spa Therapy" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 9 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198157/WhatsApp_Image_2026-06-23_at_12.28.45_PM_5_o9b85q.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198157/WhatsApp_Image_2026-06-23_at_12.28.45_PM_5_o9b85q.jpg" alt="Botanical Spa" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 10 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198157/WhatsApp_Image_2026-06-23_at_12.28.45_PM_3_c9bpin.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198157/WhatsApp_Image_2026-06-23_at_12.28.45_PM_3_c9bpin.jpg" alt="Bridal Makeover Artist" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 11 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198158/WhatsApp_Image_2026-06-23_at_12.28.45_PM_6_v9wov2.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198158/WhatsApp_Image_2026-06-23_at_12.28.45_PM_6_v9wov2.jpg" alt="Elite Botanical Facial" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 12 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198159/WhatsApp_Image_2026-06-23_at_12.28.45_PM_7_xkugyy.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198159/WhatsApp_Image_2026-06-23_at_12.28.45_PM_7_xkugyy.jpg" alt="Keratin Smooth Treatment" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Item 13 -->
+                    <div class="flex-shrink-0 w-72 md:w-80 snap-center bg-salon-softpink rounded-2xl overflow-hidden shadow-sm border border-salon-blush relative group cursor-pointer" onclick="openLightbox('https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198159/WhatsApp_Image_2026-06-23_at_12.28.45_PM_9_jvadvx.jpg')">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198159/WhatsApp_Image_2026-06-23_at_12.28.45_PM_9_jvadvx.jpg" alt="Professional Hair Course" class="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-salon-pink/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                            <span class="text-xs text-white font-bold"><i class="fa-solid fa-expand mr-1.5"></i> Click to Zoom</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instagram Redirect CTA Box -->
+            <div class="text-center mt-8">
+                <a href="https://www.instagram.com/bgsalonandacademy?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="inline-flex items-center gap-2 bg-pink-100 hover:bg-salon-pink text-salon-pink hover:text-white border border-salon-pink/20 px-5 py-3 rounded-xl text-xs font-bold transition-all shadow-sm">
+                    <i class="fa-brands fa-instagram text-base"></i>
+                    <span>Follow @bgsalonandacademy on Instagram</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- REVIEWS SECTION -->
+    <section id="reviews" class="py-16 bg-salon-softpink border-t border-b border-salon-blush scroll-mt-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4">
+
+            <!-- Section Header -->
+            <div class="text-center max-w-xl mx-auto mb-10">
+                <span class="text-xs font-extrabold tracking-widest text-salon-pink uppercase bg-pink-100 px-3 py-1 rounded-full">36+ Client Ratings</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-extrabold text-slate-950 mt-2">Verified Google Reviews</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-salon-pink to-hotpink mx-auto mt-4 rounded-full"></div>
+                <p class="text-slate-600 text-sm mt-3 font-medium">Actual client review snapshots reflecting our standards of style.</p>
+            </div>
+
+            <!-- Auto-sliding Review Container -->
+            <div class="relative max-w-lg mx-auto bg-white p-4 rounded-3xl shadow-md border border-salon-blush">
+                <!-- Play Status Badge -->
+                <div class="absolute top-3 right-4 flex items-center gap-1 text-[10px] text-slate-500 font-bold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Auto-sliding
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button id="prevReviewBtn" class="absolute -left-4 top-1/2 -translate-y-1/2 z-20 bg-salon-pink hover:bg-hotpink text-white w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-all focus:outline-none">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                <button id="nextReviewBtn" class="absolute -right-4 top-1/2 -translate-y-1/2 z-20 bg-salon-pink hover:bg-hotpink text-white w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-all focus:outline-none">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+
+                <!-- Slider Container -->
+                <div id="reviewSlider" class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar scroll-smooth">
+                    
+                    <div class="flex-shrink-0 w-full snap-center flex items-center justify-center">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198802/Screenshot_2026-06-23_124222_mabyhb.png" alt="Google Review 1" class="rounded-xl max-h-52 object-contain" loading="lazy">
+                    </div>
+
+                    <div class="flex-shrink-0 w-full snap-center flex items-center justify-center">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198804/Screenshot_2026-06-23_124248_jaz6d4.png" alt="Google Review 2" class="rounded-xl max-h-52 object-contain" loading="lazy">
+                    </div>
+
+                    <div class="flex-shrink-0 w-full snap-center flex items-center justify-center">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198802/Screenshot_2026-06-23_124230_pa0goa.png" alt="Google Review 3" class="rounded-xl max-h-52 object-contain" loading="lazy">
+                    </div>
+
+                    <div class="flex-shrink-0 w-full snap-center flex items-center justify-center">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198803/Screenshot_2026-06-23_124240_eeobdv.png" alt="Google Review 4" class="rounded-xl max-h-52 object-contain" loading="lazy">
+                    </div>
+
+                    <div class="flex-shrink-0 w-full snap-center flex items-center justify-center">
+                        <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198801/Screenshot_2026-06-23_124211_ieyl4u.png" alt="Google Review 5" class="rounded-xl max-h-52 object-contain" loading="lazy">
+                    </div>
+
+                </div>
+
+                <!-- Custom review stars footer -->
+                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-700">
+                    <span>Google Verified Rating</span>
+                    <span class="text-slate-900"><i class="fa-solid fa-star text-amber-500 mr-1"></i>4.5 rating out of 5</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CONTACT & MAPS SECTION -->
+    <section id="contact" class="py-16 bg-white scroll-mt-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+                
+                <!-- Left Details Area -->
+                <div class="lg:col-span-5 flex flex-col justify-between space-y-8">
+                    <div>
+                        <span class="text-xs font-extrabold tracking-widest text-salon-pink uppercase bg-pink-100 px-3 py-1 rounded-full">Find Our Salon</span>
+                        <h2 class="font-serif text-3xl md:text-4xl font-extrabold text-slate-950 mt-2">We look forward to seeing you</h2>
+                        <div class="w-16 h-1 bg-gradient-to-r from-salon-pink to-hotpink mt-4 rounded-full"></div>
+                        <p class="text-slate-600 text-xs mt-4 leading-relaxed font-semibold">
+                            BG's Beauty and Hair Salon is situated in the friendly Pant Nagar locality of Ghatkopar East. We have easy accessible parking available.
+                        </p>
+                    </div>
+
+                    <!-- Contact details list cards -->
+                    <div class="space-y-4">
+                        <!-- Address -->
+                        <div class="flex gap-4 items-start bg-salon-softpink p-4 rounded-2xl border border-salon-blush shadow-sm">
+                            <span class="w-9 h-9 rounded-xl bg-salon-pink text-white flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-xs font-extrabold text-slate-900">Address</h4>
+                                <p class="text-[11px] text-slate-700 font-semibold mt-1">Shop No.7, Bldg. No.23, Rachna Soc, Pant Nagar, Ghatkopar East, Mumbai, Maharashtra 400075</p>
+                                <p class="text-[10px] text-salon-darkpink font-extrabold mt-0.5"><i class="fa-solid fa-map-pin mr-1 text-xs"></i> Plus Code: 3WM7+P3 Mumbai</p>
+                            </div>
+                        </div>
+
+                        <!-- Timing -->
+                        <div class="flex gap-4 items-start bg-salon-softpink p-4 rounded-2xl border border-salon-blush shadow-sm">
+                            <span class="w-9 h-9 rounded-xl bg-salon-pink text-white flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                                <i class="fa-solid fa-clock"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-xs font-extrabold text-slate-900">Salon Timings</h4>
+                                <p class="text-[11px] text-slate-700 font-semibold mt-1">All Days Open (Sunday to Saturday)</p>
+                                <p class="text-xs font-extrabold text-salon-pink mt-0.5">10:30 AM – 8:00 PM</p>
+                            </div>
+                        </div>
+
+                        <!-- Contact -->
+                        <div class="flex gap-4 items-start bg-salon-softpink p-4 rounded-2xl border border-salon-blush shadow-sm">
+                            <span class="w-9 h-9 rounded-xl bg-salon-pink text-white flex items-center justify-center text-xs flex-shrink-0 shadow-sm">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-xs font-extrabold text-slate-900">Quick Contact</h4>
+                                <p class="text-[11px] text-slate-700 font-semibold mt-1">Primary Mobile: 08779058945</p>
+                                <p class="text-[11px] text-slate-700 font-semibold">WhatsApp Chat: 08779058945</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick buttons group -->
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="https://maps.app.goo.gl/1iaQ3MGBQoPSx96N6" target="_blank" class="w-full text-center bg-slate-900 hover:bg-salon-pink text-white py-3.5 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 shadow-md">
+                            <i class="fa-solid fa-map-location-dot"></i> Open Google Maps
+                        </a>
+                        <a href="tel:08779058945" class="w-full text-center bg-white border border-slate-300 hover:border-salon-pink text-slate-900 py-3.5 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-phone text-salon-pink"></i> Call 08779058945
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Map Preview Box -->
+                <div class="lg:col-span-7 h-[350px] lg:h-auto min-h-[350px] relative rounded-3xl overflow-hidden border border-salon-blush shadow-md">
+                    <iframe 
+                        class="absolute inset-0 w-full h-full"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.1627997864453!2d72.9069152!3d19.0993883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c7f3f2f8cf69%3A0xc6a281e0531c360b!2sBG&#39;s%20beauty%20%26%20hair%20salon%20professional%20hair%20designer!5e0!3m2!1sen!2sin!4v1719140000000!5m2!1sen!2sin" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        style="border:0;">
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-white pt-12 pb-24 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-12 gap-8">
+            
+            <!-- Column 1: Brand Info -->
+            <div class="md:col-span-5 space-y-4">
+                <div class="flex items-center gap-3">
+                    <img src="https://res.cloudinary.com/duq1f7pvq/image/upload/v1782198632/logo_3_cd7dae.png" alt="BG's Salon Logo" class="h-10 w-10 rounded-full object-cover border border-salon-pink" onerror="this.src='https://placehold.co/100x100/db2777/ffffff?text=BGs'">
+                    <span class="font-serif font-bold text-lg text-white">BG's Beauty & Hair Salon</span>
+                </div>
+                <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+                    A professional hair designer and bridal makeup studio committed to outstanding aesthetics, grooming, and academy programs in Ghatkopar East, Mumbai.
+                </p>
+                <!-- Social media icons -->
+                <div class="flex items-center gap-3">
+                    <a href="https://www.instagram.com/bgsalonandacademy?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="w-8 h-8 rounded-full bg-white/5 hover:bg-pink-500 text-white flex items-center justify-center text-xs transition-all">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://maps.app.goo.gl/1iaQ3MGBQoPSx96N6" target="_blank" class="w-8 h-8 rounded-full bg-white/5 hover:bg-emerald-500 text-white flex items-center justify-center text-xs transition-all">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                    </a>
+                    <a href="https://wa.me/918779058945?text=Hi!%20I'm%20writing%20from%20your%20website." target="_blank" class="w-8 h-8 rounded-full bg-white/5 hover:bg-teal-500 text-white flex items-center justify-center text-xs transition-all">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Column 2: Quick Links -->
+            <div class="md:col-span-3 space-y-3 text-xs">
+                <h4 class="font-serif text-sm font-bold text-salon-hotpink">Explore Services</h4>
+                <ul class="space-y-2 text-slate-400">
+                    <li><a href="#services" class="hover:text-white transition-colors">Hair Restoration & Botox</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">Ayurvedic Massages</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">Hydra Facial Glow</a></li>
+                    <li><a href="#services" class="hover:text-white transition-colors">Crystal Pedicures</a></li>
+                    <li><a href="#about" class="hover:text-white transition-colors">Hair / Beauty Course</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Professional Info -->
+            <div class="md:col-span-4 space-y-3 text-xs">
+                <h4 class="font-serif text-sm font-bold text-salon-hotpink">Instant Contact</h4>
+                <p class="text-slate-400 leading-relaxed">
+                    Have questions about services, packages, or booking dates? Let's talk immediately.
+                </p>
+                <div class="space-y-1.5 pt-1">
+                    <p class="font-semibold text-white"><i class="fa-solid fa-phone text-salon-hotpink mr-1.5"></i> 08779058945</p>
+                    <p class="font-semibold text-white"><i class="fa-solid fa-envelope text-salon-hotpink mr-1.5"></i> bgsalonmumbai@gmail.com</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 mt-8 pt-6 border-t border-slate-800 text-center text-[11px] text-slate-500">
+            &copy; 2026 BG's Beauty and Hair Salon. All Rights Reserved. Designed with White & Pink Premium aesthetics.
+        </div>
+    </footer>
+
+    <!-- MOBILE STICKY BOTTOM ACTION BAR -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full bg-white/95 border-t border-salon-blush py-3 px-4 grid grid-cols-3 gap-2 z-30 shadow-2xl backdrop-blur-md">
+        <!-- Call Now Button -->
+        <a href="tel:08779058945" class="bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-xl py-2 px-1 text-center flex flex-col items-center justify-center gap-1 text-[10px] font-bold transition-all active:scale-95 shadow-sm">
+            <i class="fa-solid fa-phone text-xs text-salon-pink"></i>
+            Call Salon
+        </a>
+        
+        <!-- Book on WhatsApp (Center Main Button) -->
+        <a href="https://wa.me/918779058945?text=Hi%20BG's%20Beauty%20and%20Hair%20Salon!%20I'd%20like%20to%20book%20an%20appointment." target="_blank" class="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white rounded-xl py-2 px-1 text-center flex flex-col items-center justify-center gap-1 text-[10px] font-bold shadow-md transition-all active:scale-95">
+            <i class="fa-brands fa-whatsapp text-sm text-white"></i>
+            WhatsApp Book
+        </a>
+
+        <!-- Directions Button -->
+        <a href="https://maps.app.goo.gl/1iaQ3MGBQoPSx96N6" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-xl py-2 px-1 text-center flex flex-col items-center justify-center gap-1 text-[10px] font-bold transition-all active:scale-95 shadow-sm">
+            <i class="fa-solid fa-map-location-dot text-xs text-salon-pink"></i>
+            Directions
+        </a>
+    </div>
+
+    <!-- INTERACTIVE BOOKING INQUIRY MODAL -->
+    <div id="bookingModal" class="fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4 hidden backdrop-blur-sm transition-all duration-300">
+        <div class="bg-white text-slate-800 rounded-3xl w-full max-w-md overflow-hidden relative shadow-2xl border border-salon-blush">
+            
+            <!-- Modal Header -->
+            <div class="bg-salon-pink text-white p-5 relative border-b border-salon-blush">
+                <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-white/90 hover:text-white text-lg focus:outline-none" aria-label="Close Modal">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <span class="text-[9px] font-extrabold tracking-widest text-white uppercase block mb-1">Direct Scheduler Desk</span>
+                <h3 class="font-serif text-lg font-bold">Book Salon Slot</h3>
+                <p class="text-xs text-pink-100 mt-0.5 font-semibold">Your selection will be sent directly to our official WhatsApp desk.</p>
+            </div>
+
+            <!-- Modal Form Body -->
+            <form id="bookingForm" onsubmit="handleFormSubmit(event)" class="p-5 space-y-4">
+                
+                <!-- Full Name -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Your Full Name</label>
+                    <input type="text" id="custName" required placeholder="Enter your full name" class="w-full bg-slate-50 border border-slate-200 focus:border-salon-pink focus:ring-1 focus:ring-salon-pink rounded-xl px-3.5 py-2.5 text-xs outline-none transition-all font-semibold">
+                </div>
+
+                <!-- Selected Service Package -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Chosen Package / Inquiry</label>
+                    <select id="custService" required class="w-full bg-slate-50 border border-slate-200 focus:border-salon-pink focus:ring-1 focus:ring-salon-pink rounded-xl px-3.5 py-2.5 text-xs outline-none transition-all font-semibold">
+                        <option value="General Salon Inquiry">General Salon Inquiry</option>
+                        <option value="Starter Grooming Combo (₹599)">Starter Grooming Combo (₹599)</option>
+                        <option value="Golden Glow Spa Card (₹999)">Golden Glow Spa Card (₹999)</option>
+                        <option value="Wine Polish & Renew Pack (₹1499)">Wine Polish & Renew Pack (₹1499)</option>
+                        <option value="Protein Therapy Combo (₹1599)">Protein Therapy Combo (₹1599)</option>
+                        <option value="L'Oreal Touch-Up & Cut (₹999)">L'Oreal Touch-Up & Cut (₹999)</option>
+                        <option value="Absolute Hair Spa Combo (₹999)">Absolute Hair Spa Combo (₹999)</option>
+                        <option value="Hair Straightening / Smoothing Combo (₹3599)">Hair Straightening / Smoothing Combo (₹3599)</option>
+                        <option value="O3+ Refresh Glow Pack (₹799)">O3+ Refresh Glow Pack (₹799)</option>
+                        <option value="Smooth Hands & Feet (₹799)">Smooth Hands & Feet (₹799)</option>
+                        <option value="Highlight Per Strip (₹149/strip)">Highlight Per Strip (₹149/strip)</option>
+                        <option value="Hair / Beauty Course">Hair / Beauty Course Inquiry</option>
+                    </select>
+                </div>
+
+                <!-- Preferred Date & Time -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Preferred Date</label>
+                        <input type="date" id="custDate" required class="w-full bg-slate-50 border border-slate-200 focus:border-salon-pink focus:ring-1 focus:ring-salon-pink rounded-xl px-3.5 py-2.5 text-xs outline-none transition-all font-semibold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Preferred Time</label>
+                        <select id="custTime" required class="w-full bg-slate-50 border border-slate-200 focus:border-salon-pink focus:ring-1 focus:ring-salon-pink rounded-xl px-3.5 py-2.5 text-xs outline-none transition-all font-semibold">
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="01:00 PM">01:00 PM</option>
+                            <option value="02:00 PM">02:00 PM</option>
+                            <option value="03:00 PM">03:00 PM</option>
+                            <option value="04:00 PM">04:00 PM</option>
+                            <option value="05:00 PM">05:00 PM</option>
+                            <option value="06:00 PM">06:00 PM</option>
+                            <option value="07:00 PM">07:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Custom Note -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Any Special Note (Optional)</label>
+                    <textarea id="custNote" rows="2" placeholder="Ex: Wedding prep, highlights required..." class="w-full bg-slate-50 border border-slate-200 focus:border-salon-pink focus:ring-1 focus:ring-salon-pink rounded-xl px-3.5 py-2.5 text-xs outline-none transition-all font-semibold"></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full bg-gradient-to-r from-salon-pink to-hotpink text-white py-3.5 rounded-xl text-xs font-extrabold tracking-wider uppercase transition-all flex items-center justify-center gap-1.5 shadow-md">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> Confirm Slot on WhatsApp
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- LIGHTBOX PREVIEW MODAL -->
+    <div id="lightbox" class="fixed inset-0 bg-slate-950/95 z-50 flex items-center justify-center p-4 hidden" onclick="closeLightbox()">
+        <button class="absolute top-4 right-4 text-white text-3xl hover:text-salon-pink focus:outline-none" aria-label="Close Lightbox">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="max-w-3xl w-full max-h-[85vh] flex items-center justify-center">
+            <img id="lightboxImg" src="" alt="Portfolio Large Preview" class="rounded-2xl max-w-full max-h-full object-contain shadow-2xl border border-white/10" onclick="event.stopPropagation()">
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const bookingModal = document.getElementById('bookingModal');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const bookingForm = document.getElementById('bookingForm');
+
+        // Gallery Slider Elements
+        const gallerySlider = document.getElementById('gallerySlider');
+        const prevGalleryBtn = document.getElementById('prevGalleryBtn');
+        const nextGalleryBtn = document.getElementById('nextGalleryBtn');
+
+        // Review Slider Elements
+        const reviewSlider = document.getElementById('reviewSlider');
+        const prevReviewBtn = document.getElementById('prevReviewBtn');
+        const nextReviewBtn = document.getElementById('nextReviewBtn');
+
+        // Toggle Mobile Menu
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Open Booking Modal Function
+        function openBookingModal(defaultService = 'General Salon Inquiry') {
+            document.getElementById('custService').value = defaultService;
+            // Preset tomorrow's date for simplicity
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('custDate').value = tomorrow.toISOString().split('T')[0];
+            
+            bookingModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Booking Modal
+        function closeBookingModal() {
+            bookingModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Handle Booking Form Submit and open WhatsApp with formatted text
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('custName').value;
+            const service = document.getElementById('custService').value;
+            const date = document.getElementById('custDate').value;
+            const time = document.getElementById('custTime').value;
+            const note = document.getElementById('custNote').value;
+
+            // Formulating text template message
+            const baseText = `*New Booking Request from Salon Website*\n` +
+                             `-----------------------------\n` +
+                             `👤 *Name:* ${name}\n` +
+                             `💇‍♀️ *Inquiry/Offer:* ${service}\n` +
+                             `📅 *Preferred Date:* ${date}\n` +
+                             `⏰ *Preferred Time:* ${time}\n` +
+                             (note.trim() ? `💬 *Additional Note:* ${note}\n` : '') +
+                             `-----------------------------\n` +
+                             `Please confirm availability. Thank you!`;
+
+            const encodedText = encodeURIComponent(baseText);
+            const whatsappURL = `https://wa.me/918779058945?text=${encodedText}`;
+
+            // Open in external window/tab
+            window.open(whatsappURL, '_blank');
+            closeBookingModal();
+        }
+
+        // Lightbox Functions
+        function openLightbox(imgSrc) {
+            lightboxImg.src = imgSrc;
+            lightbox.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function setupTouchSlider(slider, prevBtn, nextBtn) {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('active');
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if(!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2; // scroll speed multiplier
+                slider.scrollLeft = scrollLeft - walk;
+            });
+
+            // Button controls
+            if (prevBtn && nextBtn) {
+                prevBtn.addEventListener('click', () => {
+                    slider.scrollBy({ left: -280, behavior: 'smooth' });
+                });
+                nextBtn.addEventListener('click', () => {
+                    slider.scrollBy({ left: 280, behavior: 'smooth' });
+                });
+            }
+        }
+
+        // Initialize sliders
+        setupTouchSlider(gallerySlider, prevGalleryBtn, nextGalleryBtn);
+        setupTouchSlider(reviewSlider, prevReviewBtn, nextReviewBtn);
+
+        // Auto sliding mechanism for Gallery Slider
+        let galleryInterval;
+        function startGalleryAutoSlide() {
+            galleryInterval = setInterval(() => {
+                const maxScrollLeft = gallerySlider.scrollWidth - gallerySlider.clientWidth;
+                // If reached near end, rewind smoothly to zero
+                if (gallerySlider.scrollLeft >= maxScrollLeft - 10) {
+                    gallerySlider.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    gallerySlider.scrollBy({ left: 280, behavior: 'smooth' });
+                }
+            }, 3000); // Transitions every 3 seconds
+        }
+
+        function stopGalleryAutoSlide() {
+            clearInterval(galleryInterval);
+        }
+
+        // Auto sliding mechanism for Google Reviews
+        let reviewsInterval;
+        function startReviewsAutoSlide() {
+            reviewsInterval = setInterval(() => {
+                const maxScrollLeft = reviewSlider.scrollWidth - reviewSlider.clientWidth;
+                if (reviewSlider.scrollLeft >= maxScrollLeft - 10) {
+                    reviewSlider.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    reviewSlider.scrollBy({ left: reviewSlider.clientWidth, behavior: 'smooth' });
+                }
+            }, 4000); // Transitions every 4 seconds
+        }
+
+        function stopReviewsAutoSlide() {
+            clearInterval(reviewsInterval);
+        }
+
+        // Stop auto-slide on mouse hovers & resume on mouse leaves
+        gallerySlider.addEventListener('mouseenter', stopGalleryAutoSlide);
+        gallerySlider.addEventListener('mouseleave', startGalleryAutoSlide);
+        gallerySlider.addEventListener('touchstart', stopGalleryAutoSlide);
+        gallerySlider.addEventListener('touchend', startGalleryAutoSlide);
+
+        reviewSlider.addEventListener('mouseenter', stopReviewsAutoSlide);
+        reviewSlider.addEventListener('mouseleave', startReviewsAutoSlide);
+        reviewSlider.addEventListener('touchstart', stopReviewsAutoSlide);
+        reviewSlider.addEventListener('touchend', startReviewsAutoSlide);
+
+        // Start sliding loops on Window loading
+        window.onload = function() {
+            startGalleryAutoSlide();
+            startReviewsAutoSlide();
+        }
+    </script>
+</body>
+</html>
