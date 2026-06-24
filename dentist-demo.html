@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Vishal Mhaske - Premium Dental Clinic Demo</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Theme Configurations via Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: 'var(--color-brand-50, #f0fdfa)',
+                            100: 'var(--color-brand-100, #ccfbf1)',
+                            500: 'var(--color-brand-500, #0d9488)',
+                            600: 'var(--color-brand-600, #0f766e)',
+                            700: 'var(--color-brand-700, #115e59)',
+                            900: 'var(--color-brand-900, #134e4a)',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & Leaflet Map CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            /* Default: Elegant Emerald Teal */
+            --color-brand-50: #f0fdfa;
+            --color-brand-100: #ccfbf1;
+            --color-brand-500: #0d9488;
+            --color-brand-600: #0f766e;
+            --color-brand-700: #115e59;
+            --color-brand-900: #134e4a;
+        }
+
+        /* Royal Navy Theme Custom Property Bindings */
+        .theme-navy {
+            --color-brand-50: #f0f4f8;
+            --color-brand-100: #d9e2ec;
+            --color-brand-500: #102a43;
+            --color-brand-600: #0b1a30;
+            --color-brand-700: #091322;
+            --color-brand-900: #040914;
+        }
+
+        /* Gold Theme Custom Property Bindings */
+        .theme-gold {
+            --color-brand-50: #fdfbf7;
+            --color-brand-100: #f7ede2;
+            --color-brand-500: #b8860b;
+            --color-brand-600: #996515;
+            --color-brand-700: #7d4f0d;
+            --color-brand-900: #422a06;
+        }
+
+        /* Rose Theme Custom Property Bindings */
+        .theme-rose {
+            --color-brand-50: #fff5f5;
+            --color-brand-100: #fed7d7;
+            --color-brand-500: #da4b60;
+            --color-brand-600: #b83246;
+            --color-brand-700: #9b2c3c;
+            --color-brand-900: #611621;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .title-font {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Premium Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-brand-500);
+            border-radius: 4px;
+        }
+
+        /* Custom Clip path for Before/After interactive slider */
+        .slider-clip {
+            clip-path: polygon(0 0, var(--clip-percent) 0, var(--clip-percent) 100%, 0 100%);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 transition-colors duration-300">
+
+    <!-- TOP NOTIFICATION AGENCY PITCH RIBBON -->
+    <div class="bg-gradient-to-r from-teal-900 via-brand-700 to-slate-900 text-white py-2 px-4 text-xs font-semibold text-center flex items-center justify-center gap-2 relative z-50">
+        <span class="inline-flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wider">Agency Concept Pitch</span>
+        <span>Customized interactive website mockup for <strong>Dr. Vishal Mhaske</strong> - Powered by <a href="https://prishaserviceandsolutions.in" target="_blank" class="underline hover:text-brand-100 font-bold">prishaserviceandsolutions.in</a></span>
+    </div>
+
+    <!-- FLOATING LIVE PITCH CONTROLS (Demo Customizer Widget) -->
+    <div id="pitchConsole" class="fixed bottom-6 left-6 z-50 bg-white dark:bg-slate-800 shadow-2xl rounded-2xl p-4 border border-slate-200 dark:border-slate-700 max-w-xs transition-all duration-500 transform translate-y-0 scale-100">
+        <div class="flex items-center justify-between border-b pb-2 mb-3 border-slate-100 dark:border-slate-700">
+            <span class="flex items-center gap-2 font-bold text-xs tracking-wider uppercase text-slate-500 dark:text-slate-400">
+                <i data-lucide="sliders" class="w-4 h-4 text-brand-500"></i> Client Demo Panel
+            </span>
+            <button onclick="togglePitchConsole()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                <i data-lucide="chevrons-down" id="consoleToggleIcon" class="w-4 h-4 transition-transform duration-300"></i>
+            </button>
+        </div>
+        
+        <div id="consoleContent" class="space-y-4">
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                Demonstrate interactive brand options to Dr. Vishal Mhaske. Touch a color below to instantly re-theme his entire clinic design layout:
+            </p>
+            
+            <!-- Quick Theme Switcher -->
+            <div>
+                <span class="block text-xs font-semibold mb-2">Switch Brand Color Theme:</span>
+                <div class="grid grid-cols-4 gap-2">
+                    <button onclick="changeTheme('teal')" class="h-8 rounded-lg bg-teal-600 flex items-center justify-center text-white text-[10px] font-bold shadow-sm border border-teal-200 hover:scale-105 transition-all" title="Classic Teal">Teal</button>
+                    <button onclick="changeTheme('navy')" class="h-8 rounded-lg bg-slate-900 flex items-center justify-center text-white text-[10px] font-bold shadow-sm border border-slate-700 hover:scale-105 transition-all" title="Modern Navy">Navy</button>
+                    <button onclick="changeTheme('gold')" class="h-8 rounded-lg bg-amber-600 flex items-center justify-center text-white text-[10px] font-bold shadow-sm border border-amber-200 hover:scale-105 transition-all" title="Elegant Gold">Gold</button>
+                    <button onclick="changeTheme('rose')" class="h-8 rounded-lg bg-rose-600 flex items-center justify-center text-white text-[10px] font-bold shadow-sm border border-rose-200 hover:scale-105 transition-all" title="Classic Rose">Rose</button>
+                </div>
+            </div>
+
+            <!-- Dark/Light Toggle -->
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold">Toggle Dark Mode:</span>
+                <button onclick="toggleDarkMode()" class="w-10 h-6 bg-slate-300 dark:bg-brand-500 rounded-full p-1 transition-colors duration-200 ease-in-out focus:outline-none flex items-center">
+                    <div class="bg-white w-4 h-4 rounded-full shadow-md transform transition-transform duration-200 dark:translate-x-4"></div>
+                </button>
+            </div>
+
+            <!-- Dynamic Demo Notification Simulators -->
+            <div>
+                <span class="block text-xs font-semibold mb-2">Interactive Demonstrators:</span>
+                <div class="flex gap-2">
+                    <button onclick="triggerFakeLead()" class="flex-1 py-1.5 text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 rounded-lg hover:bg-emerald-200 transition-all font-semibold text-center">
+                        Simulate Booking Alert
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER & NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo (Custom Cloudinary Image Integration) -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="relative flex items-center justify-center bg-white border border-slate-200/50 rounded-xl overflow-hidden p-1.5 shadow-sm transition-transform duration-300 group-hover:scale-105">
+                    <img src="https://res.cloudinary.com/dzlfdtya4/image/upload/v1781770581/ChatGPT_Image_May_8_2026_03_39_35_PM_fyau8p.jpg" 
+                         alt="Dr. Vishal Mhaske Logo" 
+                         class="h-10 w-auto object-contain"
+                         onerror="this.src='https://placehold.co/150x50/0d9488/ffffff?text=Mhaske+Clinic'">
+                </div>
+                <div>
+                    <span class="text-lg font-black tracking-tight block text-slate-900 dark:text-white leading-none">Mhaske Dental</span>
+                    <span class="text-[9px] tracking-widest text-brand-500 dark:text-brand-100 uppercase font-bold">Orthodontics & Implants</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Menu -->
+            <nav class="hidden md:flex items-center gap-7">
+                <a href="#services" class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-brand-500 transition-all">Treatments</a>
+                <a href="#before-after" class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-brand-500 transition-all">Success Gallery</a>
+                <a href="#pricing" class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-brand-500 transition-all">Pricing Plans</a>
+                <a href="#booking" class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-brand-500 transition-all">Appointments</a>
+                <a href="#find-us" class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-brand-500 transition-all">Contact Us</a>
+            </nav>
+
+            <!-- Call to Actions -->
+            <div class="flex items-center gap-4">
+                <a href="tel:+919892415819" class="hidden lg:flex items-center gap-2 text-xs font-black tracking-wider uppercase text-brand-500 border border-brand-500/20 hover:bg-brand-50 dark:hover:bg-brand-900/10 rounded-full px-4 py-2 transition-all">
+                    <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> Call +91 9892415819
+                </a>
+                <a href="#booking" class="bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs px-5 py-3 rounded-full shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30 transition-all active:scale-95">
+                    Book Consult
+                </a>
+                
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+                    <i id="mobileMenuIcon" data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu Panel -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 animate-fadeIn">
+            <div class="px-4 pt-2 pb-6 space-y-3">
+                <a href="#services" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold text-slate-700 dark:text-slate-200">Treatments</a>
+                <a href="#before-after" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold text-slate-700 dark:text-slate-200">Success Gallery</a>
+                <a href="#pricing" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold text-slate-700 dark:text-slate-200">Pricing Plans</a>
+                <a href="#booking" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold text-slate-700 dark:text-slate-200">Appointments</a>
+                <a href="#find-us" onclick="toggleMobileMenu()" class="block py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold text-slate-700 dark:text-slate-200">Contact Us</a>
+                <div class="pt-2 border-t border-slate-100 dark:border-slate-800 flex gap-4">
+                    <a href="tel:+919892415819" class="flex-1 flex items-center justify-center gap-2 border py-2.5 rounded-xl font-bold text-sm text-slate-700 dark:text-slate-200">
+                        <i data-lucide="phone" class="w-4 h-4"></i> Call
+                    </a>
+                    <a href="#booking" onclick="toggleMobileMenu()" class="flex-1 bg-brand-500 text-white text-center py-2.5 rounded-xl font-bold text-sm">
+                        Book Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- FLOATING LIVE BOOKING NOTIFICATION SIMULATOR -->
+    <div id="leadNotification" class="fixed top-24 right-6 z-50 bg-white dark:bg-slate-800 shadow-xl border-l-4 border-brand-500 rounded-r-xl p-4 flex items-start gap-3 w-80 transform translate-x-96 opacity-0 transition-all duration-500">
+        <div class="bg-brand-50 dark:bg-brand-900 p-2 rounded-full text-brand-500">
+            <i data-lucide="sparkles" class="w-5 h-5"></i>
+        </div>
+        <div class="flex-1">
+            <span class="block font-bold text-sm text-slate-900 dark:text-white">New Appointment Requested!</span>
+            <span id="leadNotificationBody" class="block text-xs text-slate-500 dark:text-slate-400 mt-0.5">Someone just scheduled an aligner consultation.</span>
+            <span class="block text-[10px] text-brand-500 dark:text-brand-400 mt-2 font-semibold">Just 2 mins ago</span>
+        </div>
+        <button onclick="closeLeadNotification()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+    </div>
+
+    <!-- HERO SECTION with Doctor's custom image and premium credentials -->
+    <section class="relative overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-50 via-slate-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+        <!-- Abstract Background Orbs -->
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-brand-100/50 dark:bg-brand-900/20 rounded-full blur-3xl -z-10 animate-pulse"></div>
+        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-brand-100/30 dark:bg-brand-900/10 rounded-full blur-3xl -z-10"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Narrative -->
+            <div class="lg:col-span-7 space-y-6">
+                <!-- Trust Badge -->
+                <div class="inline-flex items-center gap-2 bg-brand-500/10 dark:bg-brand-500/20 text-brand-700 dark:text-brand-300 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide">
+                    <i data-lucide="award" class="w-4 h-4"></i> Advanced Clinical Orthodontics & Oral Reconstructions
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+                    Every detail designed to elevate your <span class="text-brand-500 bg-gradient-to-r from-brand-500 to-teal-400 bg-clip-text text-transparent">smile.</span>
+                </h1>
+                
+                <p class="text-lg text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
+                    Welcome to Dr. Vishal Mhaske's Premium Aesthetic Practice. We blend state-of-the-art diagnostic technology with premium comforts to give you an anxiety-free smile transformation.
+                </p>
+
+                <!-- High Impact Call to Actions -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+                    <a href="#booking" class="bg-brand-500 hover:bg-brand-600 text-white font-bold text-lg px-8 py-4 rounded-xl shadow-xl shadow-brand-500/20 hover:shadow-brand-500/40 text-center transition-all scale-100 active:scale-95">
+                        Reserve Your Slot
+                    </a>
+                    <a href="#before-after" class="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-bold text-lg px-8 py-4 rounded-xl text-center transition-all flex items-center justify-center gap-2">
+                        View Patient Results <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                </div>
+
+                <!-- Live Social Proof Metrics -->
+                <div class="pt-6 border-t border-slate-200 dark:border-slate-800 grid grid-cols-3 gap-4">
+                    <div>
+                        <span class="block text-3xl font-black text-slate-900 dark:text-white">10K+</span>
+                        <span class="block text-xs text-slate-500 dark:text-slate-400 mt-1">Perfect Smiles Restored</span>
+                    </div>
+                    <div>
+                        <span class="block text-3xl font-black text-slate-900 dark:text-white">4.9<i data-lucide="star" class="inline-block w-6 h-6 fill-yellow-400 stroke-yellow-400 ml-1 pb-1"></i></span>
+                        <span class="block text-xs text-slate-500 dark:text-slate-400 mt-1">Google Trust Rating</span>
+                    </div>
+                    <div>
+                        <span class="block text-3xl font-black text-slate-900 dark:text-white">15Yr</span>
+                        <span class="block text-xs text-slate-500 dark:text-slate-400 mt-1">Combined Dental Expertise</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Interactive Graphic Area (Injecting Dr. Vishal's Photo) -->
+            <div class="lg:col-span-5 relative">
+                <div class="relative w-full aspect-square rounded-3xl overflow-hidden bg-slate-200 dark:bg-slate-800 shadow-2xl border-4 border-white dark:border-slate-700 group">
+                    <img src="https://res.cloudinary.com/dzlfdtya4/image/upload/v1781775932/WhatsApp_Image_2026-06-04_at_12.47.06_PM_ouzx0q.jpg" 
+                         alt="Dr. Vishal Mhaske" 
+                         class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                         onerror="this.src='https://placehold.co/800x800/0d9488/ffffff?text=Dr.+Vishal+Mhaske'" />
+                    
+                    <!-- Floating Aesthetic Clinic Card inside Hero -->
+                    <div class="absolute bottom-6 left-6 right-6 bg-white/95 dark:bg-slate-900/95 backdrop-blur shadow-xl rounded-2xl p-4 border border-slate-100 dark:border-slate-800">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-brand-100 dark:bg-brand-900 text-brand-500 flex items-center justify-center shrink-0">
+                                <i data-lucide="user-check" class="w-5 h-5"></i>
+                            </div>
+                            <div class="flex-1">
+                                <span class="block text-sm font-bold text-slate-900 dark:text-white">Dr. Vishal Mhaske, MDS</span>
+                                <span class="block text-xs text-slate-500 dark:text-slate-400">Chief Orthodontist & Cosmetic Surgeon</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE DENTIST SERVICES SHOWCASE -->
+    <section id="services" class="py-20 bg-white dark:bg-slate-950 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-xs uppercase font-extrabold tracking-widest text-brand-500">World Class Services</span>
+                <h2 class="text-3xl sm:text-4xl font-black title-font">Tailored Orthodontic & Cosmetic Care</h2>
+                <p class="text-slate-500 dark:text-slate-400">From micro-alignments to premium dental implants, explore standard offerings powered by Dr. Vishal Mhaske's specialized skill sets.</p>
+            </div>
+
+            <!-- Service Treatment Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                <!-- Service 1 -->
+                <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 dark:bg-brand-500/20 text-brand-500 flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-all">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Cosmetic Smile Designing</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">Laser-guided clinical whitening, premium porcelain veneers, and direct bonding completely shaped to support your jaw symmetry.</p>
+                    <ul class="space-y-2 text-xs font-semibold text-slate-600 dark:text-slate-300 mb-6">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Advanced Laser Teeth Whitening</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Minimal Prep Veneers & Crowns</li>
+                    </ul>
+                    <a href="#booking" onclick="selectServiceInBooking('Cosmetic Design')" class="text-brand-500 text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Book Cosmetic Consultation <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 dark:bg-brand-500/20 text-brand-500 flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-all">
+                        <i data-lucide="activity" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Advanced Dental Implants</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">Secure titanium teeth replacements utilizing bio-compatible fixtures that fuse naturally with jaw bones for lifetime utility.</p>
+                    <ul class="space-y-2 text-xs font-semibold text-slate-600 dark:text-slate-300 mb-6">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Single Tooth Implant Crowns</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Multi-Unit Fixed Bridges</li>
+                    </ul>
+                    <a href="#booking" onclick="selectServiceInBooking('Dental Implants')" class="text-brand-500 text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Book Implant Consultation <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-brand-500/10 dark:bg-brand-500/20 text-brand-500 flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:text-white transition-all">
+                        <i data-lucide="align-justify" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Clear Aligners</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">Fix spacing and tooth alignments invisibly with premium transparent dental aligners monitored carefully under 3D modeling.</p>
+                    <ul class="space-y-2 text-xs font-semibold text-slate-600 dark:text-slate-300 mb-6">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> SmartTrack® Clear Aligners</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Interactive 3D Treatment Scans</li>
+                    </ul>
+                    <a href="#booking" onclick="selectServiceInBooking('Clear Aligners')" class="text-brand-500 text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Book Aligner Scan <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREMIUM SMILE COMPARISON BEFORE & AFTER GALLERY -->
+    <section id="before-after" class="py-20 bg-slate-50 dark:bg-slate-900 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-xs uppercase font-extrabold tracking-widest text-brand-500">Clinical Results Gallery</span>
+                    <h2 class="text-3xl sm:text-4xl font-black title-font">Visual Results of True Orthodontic Skill</h2>
+                    <p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+                        Slide the controller right or left to compare typical clinical restorations. These are standard expectations for modern aligners, crowns, and veneer alignments.
+                    </p>
+
+                    <!-- Fast statistics -->
+                    <div class="p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-300 flex items-center justify-center shrink-0">
+                            <i data-lucide="shield" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <span class="block text-sm font-bold text-slate-900 dark:text-white">ISO Standard Quality Materials</span>
+                            <span class="block text-xs text-slate-500 dark:text-slate-400">All fixtures and veneer treatments include comprehensive clinical guarantees.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Slider Canvas Element (Dynamic Touch Slider) -->
+                <div class="lg:col-span-7">
+                    <div class="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800 select-none cursor-ew-resize"
+                         id="sliderContainer"
+                         onmousedown="startSlide(event)"
+                         ontouchstart="startSlide(event)"
+                         style="--clip-percent: 50%;">
+                        
+                        <!-- Before Image (Underneath) -->
+                        <div class="absolute inset-0">
+                            <img src="https://images.unsplash.com/photo-1544717297-fa95b6ee9643?q=80&w=800&auto=format&fit=crop" 
+                                 class="w-full h-full object-cover" 
+                                 alt="Smile treatment before state" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop'">
+                            <div class="absolute bottom-4 left-4 bg-black/75 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">Before Treatment</div>
+                        </div>
+
+                        <!-- After Image (Overlay clipped) -->
+                        <div class="absolute inset-0 slider-clip">
+                            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=800&auto=format&fit=crop" 
+                                 class="w-full h-full object-cover" 
+                                 alt="Smile treatment after state"
+                                 onerror="this.src='https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop'">
+                            <div class="absolute bottom-4 right-4 bg-brand-500/90 text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">After Care</div>
+                        </div>
+
+                        <!-- Custom Sliding Handle -->
+                        <div class="absolute top-0 bottom-0 w-1 bg-white hover:bg-brand-500 transition-colors shadow-2xl flex items-center justify-center cursor-ew-resize"
+                             style="left: var(--clip-percent); transform: translateX(-50%);">
+                            <div class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 text-brand-500 border-2 border-brand-500 flex items-center justify-center shadow-lg transform transition-transform hover:scale-110">
+                                <i data-lucide="split" class="w-5 h-5 rotate-90"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs text-slate-400 mt-3 flex items-center justify-center gap-1.5"><i data-lucide="hand" class="w-4 h-4"></i> Click and drag or touch-swipe over the image to view the beautiful alignment transformation!</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE TREATMENT COST CALCULATOR & TRANSPARENT PRICING -->
+    <section id="pricing" class="py-20 bg-white dark:bg-slate-950 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto space-y-4 mb-16">
+                <span class="text-xs uppercase font-extrabold tracking-widest text-brand-500">Transparent Budget Planning</span>
+                <h2 class="text-3xl sm:text-4xl font-black title-font">Treatment Cost Estimator (INR)</h2>
+                <p class="text-slate-500 dark:text-slate-400">Select standard oral dental packages below to view estimations, monthly EMI potentials, and coverage breakdowns.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Left Panel: Interactive Estimation Wizard (Indian Rupee localized values) -->
+                <div class="lg:col-span-7 bg-slate-50 dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800">
+                    <h3 class="text-2xl font-bold mb-6 flex items-center gap-2"><i data-lucide="calculator" class="text-brand-500 w-6 h-6"></i> Indian Treatment Cost Calculator</h3>
+                    
+                    <!-- Form Control Checkboxes for calculations -->
+                    <div class="space-y-4">
+                        <label class="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-brand-500 transition-all">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" id="calcCheckup" checked onchange="updateEstimator()" class="w-5 h-5 accent-brand-500 rounded">
+                                <div>
+                                    <span class="font-bold block text-sm">Deep Cleaning & Preventive Exam</span>
+                                    <span class="text-xs text-slate-400">X-Ray diagnostics, digital scanning, polishing</span>
+                                </div>
+                            </div>
+                            <span class="text-lg font-bold text-brand-500">₹1,500</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-brand-500 transition-all">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" id="calcWhitening" onchange="updateEstimator()" class="w-5 h-5 accent-brand-500 rounded">
+                                <div>
+                                    <span class="font-bold block text-sm">Professional Laser Teeth Whitening</span>
+                                    <span class="text-xs text-slate-400">Single session modern laser system, up to 6 shades lift</span>
+                                </div>
+                            </div>
+                            <span class="text-lg font-bold text-brand-500">₹7,500</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-brand-500 transition-all">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" id="calcInvisalign" onchange="updateEstimator()" class="w-5 h-5 accent-brand-500 rounded">
+                                <div>
+                                    <span class="font-bold block text-sm">Clear Orthodontic Aligners</span>
+                                    <span class="text-xs text-slate-400">Standard invisible clear aligner set & medical tracking</span>
+                                </div>
+                            </div>
+                            <span class="text-lg font-bold text-brand-500">₹65,000</span>
+                        </label>
+
+                        <label class="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-brand-500 transition-all">
+                            <div class="flex items-center gap-3">
+                                <input type="checkbox" id="calcImplant" onchange="updateEstimator()" class="w-5 h-5 accent-brand-500 rounded">
+                                <div>
+                                    <span class="font-bold block text-sm">Premium Titanium Dental Implant</span>
+                                    <span class="text-xs text-slate-400">Post insertion, custom diagnostic guide, abutment, & crown</span>
+                                </div>
+                            </div>
+                            <span class="text-lg font-bold text-brand-500">₹32,000</span>
+                        </label>
+                    </div>
+
+                    <!-- Insured toggle discount slider simulation -->
+                    <div class="mt-6 pt-6 border-t border-slate-200 dark:border-slate-800">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="font-semibold text-sm block">Do you have corporate/personal dental insurance?</span>
+                                <span class="text-xs text-slate-400">Save an average of 40% with valid corporate claim networks.</span>
+                            </div>
+                            <button onclick="toggleInsuranceCalc()" id="insuranceToggleBtn" class="px-4 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-white hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all">
+                                No Claims / Cash Pay
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Cost Estimation Summary Details -->
+                <div class="lg:col-span-5 flex flex-col justify-between bg-brand-900 text-white rounded-3xl p-6 md:p-8 relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full blur-2xl -z-10"></div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-100 opacity-80">ESTIMATED INVESTMENT</span>
+                        <div class="flex items-baseline gap-2 mt-2">
+                            <span class="text-4xl font-black tracking-tight" id="calcResultVal">₹1,500</span>
+                            <span class="text-brand-100/70 text-xs">Total Pack</span>
+                        </div>
+                        
+                        <div class="mt-6 space-y-4">
+                            <div class="flex items-center justify-between border-b border-white/10 pb-2">
+                                <span class="text-xs text-brand-100/80">Estimated Monthly EMI Options (No Cost)</span>
+                                <span class="font-bold text-sm text-emerald-300" id="calcMonthlyVal">₹125/mo</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-white/10 pb-2">
+                                <span class="text-xs text-brand-100/80">Insurance Claim Deductions</span>
+                                <span class="font-bold text-sm text-emerald-300" id="calcSavingsVal">₹0</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-white/10 pb-2">
+                                <span class="text-xs text-brand-100/80">Easy EMI Terms</span>
+                                <span class="font-bold text-sm">Up to 12 Months Interest Free</span>
+                            </div>
+                        </div>
+
+                        <!-- Mini Value pitch -->
+                        <div class="bg-white/10 p-4 rounded-2xl mt-6">
+                            <div class="flex gap-3">
+                                <i data-lucide="info" class="w-5 h-5 text-emerald-300 shrink-0"></i>
+                                <span class="text-xs leading-normal text-brand-100/95">
+                                    Our clinic offers 100% pre-approved, flexible instalment facilities linked directly to your major credit card or digital finance network.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <a href="#booking" class="block w-full text-center bg-white hover:bg-slate-100 text-brand-950 font-bold py-3.5 rounded-xl transition-all shadow-lg text-sm">
+                            Apply & Book Treatment Now
+                        </a>
+                        <span class="block text-center text-[10px] text-brand-100/60 mt-3">Final clinical valuations shared post 3D scanning with Dr. Vishal.</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- THE APPOINTMENT RESERVATION HUB (Interactive multi-step form wizard) -->
+    <section id="booking" class="py-20 bg-slate-50 dark:bg-slate-900 transition-colors">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center space-y-4 mb-12">
+                <span class="text-xs uppercase font-extrabold tracking-widest text-brand-500">Hassle-Free Care Reservation</span>
+                <h2 class="text-3xl sm:text-4xl font-black title-font">Schedule Dr. Vishal's Care In Seconds</h2>
+                <p class="text-slate-500 dark:text-slate-400">Complete our interactive diagnostic scheduler to experience a seamless booking pipeline mockup.</p>
+            </div>
+
+            <!-- Wizard Card Container -->
+            <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-slate-200/50 dark:border-slate-700/50 overflow-hidden">
+                <!-- Wizard Head Progress Stepper -->
+                <div class="grid grid-cols-3 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50">
+                    <div id="stepHeader1" class="py-4 text-center border-b-4 border-brand-500 text-brand-500 font-bold text-xs sm:text-sm">
+                        1. Treatment Selection
+                    </div>
+                    <div id="stepHeader2" class="py-4 text-center border-b-4 border-transparent text-slate-400 font-bold text-xs sm:text-sm">
+                        2. Expert & Schedule
+                    </div>
+                    <div id="stepHeader3" class="py-4 text-center border-b-4 border-transparent text-slate-400 font-bold text-xs sm:text-sm">
+                        3. Confirmation Details
+                    </div>
+                </div>
+
+                <!-- Wizard Steps Wrapper -->
+                <div class="p-6 md:p-8 min-h-[380px] flex flex-col justify-between">
+                    
+                    <!-- STEP 1: Service Category Selection -->
+                    <div id="stepPanel1" class="space-y-6">
+                        <span class="block font-bold text-lg">What treatment do you require?</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            
+                            <label class="p-4 rounded-2xl border-2 border-brand-500 bg-brand-50/20 dark:bg-brand-900/10 cursor-pointer flex items-center justify-between group transition-all" id="serviceCard1">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="bookingService" value="Hygiene Clean & Checkup" checked onchange="highlightServiceCard(1)" class="w-5 h-5 accent-brand-500">
+                                    <div>
+                                        <span class="block font-bold text-sm">Hygiene & Checkup</span>
+                                        <span class="text-xs text-slate-400">Standard deep scaling & checkup (₹1,500)</span>
+                                    </div>
+                                </div>
+                                <i data-lucide="sparkles" class="w-5 h-5 text-brand-500"></i>
+                            </label>
+
+                            <label class="p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 cursor-pointer flex items-center justify-between group hover:border-brand-500 transition-all" id="serviceCard2">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="bookingService" value="Cosmetic Design" onchange="highlightServiceCard(2)" class="w-5 h-5 accent-brand-500">
+                                    <div>
+                                        <span class="block font-bold text-sm">Cosmetic veneers / Whitening</span>
+                                        <span class="text-xs text-slate-400">Micro aesthetic porcelain crown options</span>
+                                    </div>
+                                </div>
+                                <i data-lucide="smile" class="w-5 h-5 text-slate-400"></i>
+                            </label>
+
+                            <label class="p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 cursor-pointer flex items-center justify-between group hover:border-brand-500 transition-all" id="serviceCard3">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="bookingService" value="Clear Aligners" onchange="highlightServiceCard(3)" class="w-5 h-5 accent-brand-500">
+                                    <div>
+                                        <span class="block font-bold text-sm">Clear Orthodontic Aligners</span>
+                                        <span class="text-xs text-slate-400">Align teeth invisibly with modern technology</span>
+                                    </div>
+                                </div>
+                                <i data-lucide="shield" class="w-5 h-5 text-slate-400"></i>
+                            </label>
+
+                            <label class="p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 cursor-pointer flex items-center justify-between group hover:border-brand-500 transition-all" id="serviceCard4">
+                                <div class="flex items-center gap-3">
+                                    <input type="radio" name="bookingService" value="Dental Implants" onchange="highlightServiceCard(4)" class="w-5 h-5 accent-brand-500">
+                                    <div>
+                                        <span class="block font-bold text-sm">Titanium Dental Implant</span>
+                                        <span class="text-xs text-slate-400">Secure single or multi unit replacements</span>
+                                    </div>
+                                </div>
+                                <i data-lucide="activity" class="w-5 h-5 text-slate-400"></i>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: Doctor, Date & Time Slots Picker -->
+                    <div id="stepPanel2" class="hidden space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            
+                            <!-- Left: Select Expert Surgeon -->
+                            <div>
+                                <label class="block text-sm font-bold mb-2">Selected Treatment Specialist:</label>
+                                <div class="space-y-3">
+                                    <label class="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-900 rounded-xl border border-brand-500/30 cursor-pointer">
+                                        <input type="radio" name="bookingDentist" value="Dr. Vishal Mhaske" checked class="accent-brand-500">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-8 h-8 rounded-full bg-brand-500 text-white font-bold flex items-center justify-center text-xs">VM</div>
+                                            <div>
+                                                <span class="block font-bold text-xs">Dr. Vishal Mhaske, MDS</span>
+                                                <span class="block text-[10px] text-slate-400">Chief Orthodontist & Cosmetic Surgeon</span>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Right: Time Slot & Datepicker Simulation -->
+                            <div>
+                                <label class="block text-sm font-bold mb-2">Choose Date & Preferred Time Slot:</label>
+                                <input type="date" id="bookingDate" min="2026-06-24" value="2026-06-25" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-2.5 text-sm font-semibold mb-4 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                                
+                                <span class="block text-xs font-bold text-slate-400 mb-2">Available Slots for Selected Date:</span>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button type="button" onclick="selectTimeSlot(this)" class="time-slot-btn py-2 text-center text-xs rounded-lg border bg-brand-500 text-white font-semibold">10:00 AM</button>
+                                    <button type="button" onclick="selectTimeSlot(this)" class="time-slot-btn py-2 text-center text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold hover:border-brand-500">12:30 PM</button>
+                                    <button type="button" onclick="selectTimeSlot(this)" class="time-slot-btn py-2 text-center text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold hover:border-brand-500">04:00 PM</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: Complete Patient Details -->
+                    <div id="stepPanel3" class="hidden space-y-6">
+                        <span class="block font-bold text-lg">Finalize Patient Details to Verify Appointment</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold mb-1 text-slate-500">Patient Full Name:</label>
+                                <input type="text" id="patientName" placeholder="Dr. Vishal Mhaske" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold mb-1 text-slate-500">Mobile Phone Number:</label>
+                                <input type="tel" id="patientPhone" placeholder="+91 9892415819" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="block text-xs font-semibold mb-1 text-slate-500">Patient Email Address:</label>
+                                <input type="email" id="patientEmail" placeholder="support@prishaserviceandsolutions.in" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            </div>
+                        </div>
+
+                        <!-- Confirmation message alert simulator notice -->
+                        <div class="p-3 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300 text-xs rounded-xl flex items-center gap-2">
+                            <i data-lucide="info" class="w-4 h-4 text-emerald-500"></i>
+                            An instant diagnostic confirmation token will be generated to test the live lead flow!
+                        </div>
+                    </div>
+
+                    <!-- Footer Action Buttons inside Wizard -->
+                    <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-700 flex justify-between gap-4">
+                        <button type="button" id="prevBtn" onclick="navigateWizard(-1)" class="hidden py-3 px-6 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-white font-bold rounded-xl text-sm transition-all">
+                            Back
+                        </button>
+                        <div class="flex-1"></div>
+                        <button type="button" id="nextBtn" onclick="navigateWizard(1)" class="w-full sm:w-auto py-3 px-8 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl text-sm transition-all shadow-md">
+                            Continue Treatment Selection
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CUSTOMER SATISFACTION (Interactive Review / Testimonial Filter) -->
+    <section class="py-20 bg-white dark:bg-slate-950 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto space-y-4 mb-12">
+                <span class="text-xs uppercase font-extrabold tracking-widest text-brand-500">Patient Testimonials</span>
+                <h2 class="text-3xl sm:text-4xl font-black title-font">Stories from Verified Patient Reviews</h2>
+                <p class="text-slate-500 dark:text-slate-400">See real success stories and filter results by treatment category.</p>
+            </div>
+
+            <!-- Interactive Filters -->
+            <div class="flex flex-wrap justify-center gap-3 mb-8">
+                <button onclick="filterTestimonials('all')" id="filterBtnAll" class="filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-brand-500 text-white shadow-lg transition-all">All Reviews</button>
+                <button onclick="filterTestimonials('whitening')" id="filterBtnWhitening" class="filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-all">Cosmetic/Whitening</button>
+                <button onclick="filterTestimonials('implants')" id="filterBtnImplants" class="filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-all">Dental Implants</button>
+                <button onclick="filterTestimonials('aligners')" id="filterBtnAligners" class="filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-all">Orthodontics/Aligners</button>
+            </div>
+
+            <!-- Dynamic Reviews Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="testimonialsContainer">
+                
+                <!-- Review Card 1 (Whitening) -->
+                <div class="testimonial-card bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl relative" data-category="whitening">
+                    <div class="flex items-center gap-1.5 text-yellow-400 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 mb-6 italic leading-relaxed">
+                        "I had an amazing teeth whitening experience under Dr. Vishal Mhaske. The entire procedure was completely pain-free and results were visible instantly!"
+                    </p>
+                    <div class="flex items-center gap-3 border-t border-slate-200/50 dark:border-slate-800/50 pt-4">
+                        <div class="w-10 h-10 rounded-full bg-slate-300 flex items-center justify-center font-bold">SM</div>
+                        <div>
+                            <span class="block text-sm font-bold">Siddharth Mehta</span>
+                            <span class="block text-[10px] text-brand-500 uppercase font-bold tracking-wider">Whitening Treatment</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 2 (Implants) -->
+                <div class="testimonial-card bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl relative" data-category="implants">
+                    <div class="flex items-center gap-1.5 text-yellow-400 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 mb-6 italic leading-relaxed">
+                        "My replacement dental implant feels totally natural. Dr. Vishal is an incredibly systematic professional, explaining every step of the prosthetics process clearly."
+                    </p>
+                    <div class="flex items-center gap-3 border-t border-slate-200/50 dark:border-slate-800/50 pt-4">
+                        <div class="w-10 h-10 rounded-full bg-slate-300 flex items-center justify-center font-bold">GK</div>
+                        <div>
+                            <span class="block text-sm font-bold">Gaurav K.</span>
+                            <span class="block text-[10px] text-brand-500 uppercase font-bold tracking-wider">Dental Implant Patient</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 3 (Aligners) -->
+                <div class="testimonial-card bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl relative" data-category="aligners">
+                    <div class="flex items-center gap-1.5 text-yellow-400 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 mb-6 italic leading-relaxed">
+                        "The customized clear aligners fixed my gap issues completely in under 8 months. Best cosmetic clinic with highly premium hygiene standards!"
+                    </p>
+                    <div class="flex items-center gap-3 border-t border-slate-200/50 dark:border-slate-800/50 pt-4">
+                        <div class="w-10 h-10 rounded-full bg-slate-300 flex items-center justify-center font-bold">AP</div>
+                        <div>
+                            <span class="block text-sm font-bold">Anjali Patil</span>
+                            <span class="block text-[10px] text-brand-500 uppercase font-bold tracking-wider">Aligner Treatment</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE ACCORDION FAQ -->
+    <section class="py-20 bg-slate-50 dark:bg-slate-900 transition-colors">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="text-center space-y-4 mb-12">
+                <span class="text-xs uppercase font-extrabold tracking-widest text-brand-500">FAQ Helpdesk</span>
+                <h2 class="text-3xl sm:text-4xl font-black title-font">Frequently Asked Questions</h2>
+                <p class="text-slate-500 dark:text-slate-400">Answers to common queries regarding Dr. Vishal Mhaske's clinical processes.</p>
+            </div>
+
+            <!-- FAQ Wrapper -->
+            <div class="space-y-4">
+                
+                <!-- FAQ 1 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200/60 dark:border-slate-700/60 overflow-hidden transition-all">
+                    <button onclick="toggleFAQ(1)" class="w-full flex items-center justify-between p-5 text-left font-bold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                        <span>How can I schedule an emergency consultation slot?</span>
+                        <i data-lucide="chevron-down" id="faqIcon1" class="w-5 h-5 text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faqContent1" class="hidden px-5 pb-5 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-700/50 pt-3 leading-relaxed">
+                        In case of severe emergency or toothache relief, you can directly dial our main clinic helpline at <a href="tel:+919892415819" class="text-brand-500 font-bold hover:underline">+91 9892415819</a>. We prioritize critical walk-ins to offer instantaneous medical support.
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200/60 dark:border-slate-700/60 overflow-hidden transition-all">
+                    <button onclick="toggleFAQ(2)" class="w-full flex items-center justify-between p-5 text-left font-bold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                        <span>Do you accept credit card EMI facilities?</span>
+                        <i data-lucide="chevron-down" id="faqIcon2" class="w-5 h-5 text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faqContent2" class="hidden px-5 pb-5 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-700/50 pt-3 leading-relaxed">
+                        Yes! We support all major Indian credit cards, UPI, and zero-cost EMI plans up to 12 months, allowing comfortable access to advanced clear orthodontics and smile designs.
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200/60 dark:border-slate-700/60 overflow-hidden transition-all">
+                    <button onclick="toggleFAQ(3)" class="w-full flex items-center justify-between p-5 text-left font-bold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                        <span>How long do custom clear aligner procedures take?</span>
+                        <i data-lucide="chevron-down" id="faqIcon3" class="w-5 h-5 text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faqContent3" class="hidden px-5 pb-5 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-100 dark:border-slate-700/50 pt-3 leading-relaxed">
+                        Typically, visible teeth alignments can be completed in 6 to 12 months depending on case severity. We perform complete digital 3D scans beforehand to map out precise transformations.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- REAL MAP AND CLINIC DETAILS SECTION -->
+    <section id="find-us" class="py-20 bg-white dark:bg-slate-950 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Left contact details panel -->
+                <div class="lg:col-span-5 space-y-8 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="text-xs uppercase font-extrabold tracking-widest text-brand-500">Locate Dr. Vishal's Clinic</span>
+                        <h2 class="text-3xl sm:text-4xl font-black title-font">Let's Connect & Visit Us Today</h2>
+                        <p class="text-slate-500 dark:text-slate-400">
+                            Our premier dental studio is centrally located, offering easy parking accommodations for visiting patients.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-brand-500/10 dark:bg-brand-500/20 text-brand-500 flex items-center justify-center shrink-0">
+                                <i data-lucide="phone" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="block text-xs font-semibold text-slate-400">Call & Support Helpline</span>
+                                <a href="tel:+919892415819" class="block text-sm font-bold hover:text-brand-500 transition-colors">+91 9892415819</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-brand-500/10 dark:bg-brand-500/20 text-brand-500 flex items-center justify-center shrink-0">
+                                <i data-lucide="clock" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="block text-xs font-semibold text-slate-400">Open Clinical Hours</span>
+                                <span class="block text-sm font-bold">Mon - Sat: 10:00 AM - 8:00 PM | Sun: Closed</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-brand-500/10 dark:bg-brand-500/20 text-brand-500 flex items-center justify-center shrink-0">
+                                <i data-lucide="globe" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="block text-xs font-semibold text-slate-400">Developed & Programmed By</span>
+                                <a href="https://prishaserviceandsolutions.in" target="_blank" class="block text-sm font-bold hover:text-brand-500 transition-colors underline">prishaserviceandsolutions.in</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-5 bg-brand-50 dark:bg-brand-900/20 rounded-2xl border border-brand-500/20">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="navigation" class="w-5 h-5 text-brand-500 shrink-0 mt-0.5 animate-bounce"></i>
+                            <div>
+                                <span class="block text-xs font-extrabold text-brand-900 dark:text-brand-200 uppercase tracking-wider mb-1">Direct GPS Navigation Support</span>
+                                <p class="text-xs text-brand-700 dark:text-brand-300 leading-normal mb-3">
+                                    Click below to open the official, high-resolution direct Google Map directions on your device.
+                                </p>
+                                <a href="https://maps.app.goo.gl/mrdBoyTDmuFccVE29" target="_blank" class="inline-flex items-center gap-1.5 bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all shadow">
+                                    <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Open in Google Maps
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Map Canvas Frame -->
+                <div class="lg:col-span-7 h-[450px] rounded-3xl overflow-hidden shadow-2xl relative border border-slate-200 dark:border-slate-800">
+                    <div id="map" class="w-full h-full"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CONFIRMATION MODAL WITH CONFETTI SIMULATION -->
+    <div id="bookingModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm hidden">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl transform scale-95 transition-all text-center">
+            <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-950 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
+                <i data-lucide="check-circle" class="w-10 h-10"></i>
+            </div>
+            
+            <h3 class="text-2xl font-black mb-2 text-slate-900 dark:text-white">Appointment Mockup Logged!</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Excellent choice. Below is the secure confirmation parameter generated for Dr. Vishal Mhaske's booking pipeline integration.</p>
+            
+            <!-- Dynamic token box -->
+            <div class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl text-left space-y-2 mb-6">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-400">SERVICE:</span>
+                    <span id="modalService" class="text-xs font-bold text-brand-500">Hygiene & Checkup</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-400">SPECIALIST:</span>
+                    <span id="modalDentist" class="text-xs font-bold">Dr. Vishal Mhaske</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-400">DATE & SLOT:</span>
+                    <span id="modalSlot" class="text-xs font-bold">2026-06-25 at 10:00 AM</span>
+                </div>
+                <div class="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-slate-700">
+                    <span class="text-xs font-bold text-slate-400">TRACKING:</span>
+                    <span id="modalId" class="text-xs font-mono font-bold text-emerald-500">PRISHA-LIVE-DEMO</span>
+                </div>
+            </div>
+
+            <button onclick="closeBookingModal()" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3 rounded-xl transition-all shadow-md text-sm">
+                Understand & Continue Customizing
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-12 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                
+                <!-- Left Branding -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center bg-white border border-slate-800 rounded-lg overflow-hidden p-1">
+                            <img src="https://res.cloudinary.com/dzlfdtya4/image/upload/v1781770581/ChatGPT_Image_May_8_2026_03_39_35_PM_fyau8p.jpg" 
+                                 alt="Dr. Vishal Mhaske Logo" 
+                                 class="h-9 w-auto object-contain">
+                        </div>
+                        <span class="text-lg font-black text-white">Mhaske Dental</span>
+                    </div>
+                    <p class="text-xs text-slate-500 leading-relaxed">Providing high-standard diagnostic biological family dentistry, invisible clear aligners, and aesthetic oral reconstructions under Dr. Vishal Mhaske's expert super-speciality supervision.</p>
+                </div>
+
+                <!-- Treatments Links -->
+                <div>
+                    <span class="block text-white text-xs font-extrabold uppercase tracking-widest mb-4">Aesthetic Treatments</span>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#services" class="hover:text-white transition-colors">Veneers & Aesthetics</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Titanium Dental Implants</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Clear Aligners</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors">Laser Whitening</a></li>
+                    </ul>
+                </div>
+
+                <!-- Office Links -->
+                <div>
+                    <span class="block text-white text-xs font-extrabold uppercase tracking-widest mb-4">Clinic Solutions</span>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#pricing" class="hover:text-white transition-colors">Estimation Calculations</a></li>
+                        <li><a href="#pricing" class="hover:text-white transition-colors">EMI Plan Approvals</a></li>
+                        <li><a href="https://maps.app.goo.gl/mrdBoyTDmuFccVE29" target="_blank" class="hover:text-white transition-colors underline">Get Directions (Google Maps)</a></li>
+                        <li><a href="#booking" class="hover:text-white transition-colors">Cancel Appointment Check</a></li>
+                    </ul>
+                </div>
+
+                <!-- Trust Badges -->
+                <div>
+                    <span class="block text-white text-xs font-extrabold uppercase tracking-widest mb-4">Digital Partner</span>
+                    <div class="p-4 rounded-xl bg-slate-800 border border-slate-700/50 space-y-2">
+                        <span class="block text-[10px] text-brand-500 font-extrabold uppercase tracking-wider">PRISHA SERVICE & SOLUTIONS</span>
+                        <p class="text-[10px] text-slate-500 leading-normal">Interactive design and lead automation workflows customized for premier clinicians. Discover more at <a href="https://prishaserviceandsolutions.in" target="_blank" class="text-white hover:underline font-bold">prishaserviceandsolutions.in</a></p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-slate-800/80 text-center text-xs text-slate-600 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <span>© 2026 Dr. Vishal Mhaske's Orthodontics. All Rights Reserved.</span>
+                <span class="flex items-center gap-2">
+                    <a href="https://prishaserviceandsolutions.in" target="_blank" class="hover:text-slate-400 font-bold">Powered by Prisha Service & Solutions</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Leaflet.js Library to render fully responsive local clinical map -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+        // Init Lucide Icons globally
+        lucide.createIcons();
+
+        // -------------------------------------------------------------
+        // WIDGET CLIENT CONTROLS & STATE MANAGEMENT
+        // -------------------------------------------------------------
+        let currentTheme = 'teal';
+        let isDarkMode = false;
+        let consoleOpen = true;
+
+        function togglePitchConsole() {
+            const content = document.getElementById('consoleContent');
+            const icon = document.getElementById('consoleToggleIcon');
+            consoleOpen = !consoleOpen;
+            
+            if (consoleOpen) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function changeTheme(themeName) {
+            const bodyClass = document.body.classList;
+            
+            // Remove previous theme class bindings
+            bodyClass.remove('theme-teal', 'theme-navy', 'theme-gold', 'theme-rose');
+            
+            if (themeName !== 'teal') {
+                bodyClass.add(`theme-${themeName}`);
+            }
+            
+            currentTheme = themeName;
+            
+            // Trigger feedback message toast to dentist client
+            triggerToastNotification(`Brand Colors changed to: ${themeName.toUpperCase()} Theme!`);
+        }
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            if (isDarkMode) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            triggerToastNotification(`Aesthetic Mode: ${isDarkMode ? 'DARK' : 'LIGHT'}`);
+        }
+
+        function triggerToastNotification(message) {
+            const leadNotif = document.getElementById('leadNotification');
+            const bodyText = document.getElementById('leadNotificationBody');
+            
+            bodyText.innerText = message;
+            leadNotif.classList.remove('translate-x-96', 'opacity-0');
+            leadNotif.classList.add('translate-x-0', 'opacity-100');
+            
+            // Auto-hide toast after 4 seconds
+            setTimeout(() => {
+                closeLeadNotification();
+            }, 4000);
+        }
+
+        function triggerFakeLead() {
+            const listServices = ['Cosmetic veneers', 'Clear Orthodontic Aligners', 'Titanium Dental Implants', 'Routine Examination'];
+            const randomService = listServices[Math.floor(Math.random() * listServices.length)];
+            const dentalFirstNames = ['Rajesh', 'Priya', 'Amit', 'Sneha', 'Vikram', 'Rohan'];
+            const randomName = dentalFirstNames[Math.floor(Math.random() * dentalFirstNames.length)] + " K.";
+            
+            triggerToastNotification(`${randomName} just initiated custom reservation for ${randomService}!`);
+        }
+
+        function closeLeadNotification() {
+            const leadNotif = document.getElementById('leadNotification');
+            leadNotif.classList.add('translate-x-96', 'opacity-0');
+            leadNotif.classList.remove('translate-x-0', 'opacity-100');
+        }
+
+        // -------------------------------------------------------------
+        // REAL OPENSTREETMAP LEAFLET MAP IMPLEMENTATION
+        // -------------------------------------------------------------
+        let map;
+        window.onload = function() {
+            // General clinical zone (Mumbai coordinates)
+            map = L.map('map', {
+                center: [19.1726, 72.9565],
+                zoom: 15,
+                scrollWheelZoom: false
+            });
+
+            // Clean custom dark/light tiles style mapping
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Create customized clinical location pin icon
+            const customIcon = L.divIcon({
+                html: `<div class="w-10 h-10 bg-emerald-600 rounded-full border-4 border-white shadow-lg flex items-center justify-center text-white"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z"/></svg></div>`,
+                className: '',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40]
+            });
+
+            L.marker([19.1726, 72.9565], { icon: customIcon })
+             .addTo(map)
+             .bindPopup(`<strong class="text-slate-900 font-bold block text-sm">Dr. Vishal Mhaske Clinic</strong><span class="text-xs text-slate-500">Premium Orthodontics & Implants Studio</span><br/><a href="https://maps.app.goo.gl/mrdBoyTDmuFccVE29" target="_blank" class="text-xs text-teal-600 font-bold underline mt-1 inline-block">Direct Google Maps Directions</a>`)
+             .openPopup();
+        };
+
+        // -------------------------------------------------------------
+        // BEFORE & AFTER REAL-TIME DRAG COMPARISON SLIDER
+        // -------------------------------------------------------------
+        function startSlide(e) {
+            e.preventDefault();
+            const container = document.getElementById('sliderContainer');
+            
+            function move(event) {
+                const rect = container.getBoundingClientRect();
+                const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+                let positionX = clientX - rect.left;
+                
+                // Maintain percentage threshold within actual image limits
+                if (positionX < 0) positionX = 0;
+                if (positionX > rect.width) positionX = rect.width;
+                
+                const percentage = (positionX / rect.width) * 100;
+                container.style.setProperty('--clip-percent', `${percentage}%`);
+            }
+            
+            function stop() {
+                window.removeEventListener('mousemove', move);
+                window.removeEventListener('mouseup', stop);
+                window.removeEventListener('touchmove', move);
+                window.removeEventListener('touchend', stop);
+            }
+            
+            window.addEventListener('mousemove', move);
+            window.addEventListener('mouseup', stop);
+            window.addEventListener('touchmove', move);
+            window.addEventListener('touchend', stop);
+        }
+
+        // -------------------------------------------------------------
+        // INTERACTIVE DENTAL CALCULATOR LOGIC (INR localization)
+        // -------------------------------------------------------------
+        let hasInsurance = false;
+
+        function toggleInsuranceCalc() {
+            hasInsurance = !hasInsurance;
+            const btn = document.getElementById('insuranceToggleBtn');
+            
+            if (hasInsurance) {
+                btn.innerText = "Corporate Network Active (Save 40%)";
+                btn.classList.remove('bg-white', 'text-slate-600', 'dark:bg-slate-800');
+                btn.classList.add('bg-emerald-500', 'text-white', 'border-transparent');
+            } else {
+                btn.innerText = "No Claims / Cash Pay";
+                btn.classList.add('bg-white', 'text-slate-600', 'dark:bg-slate-800');
+                btn.classList.remove('bg-emerald-500', 'text-white', 'border-transparent');
+            }
+            updateEstimator();
+        }
+
+        function updateEstimator() {
+            let total = 0;
+            if (document.getElementById('calcCheckup').checked) total += 1500;
+            if (document.getElementById('calcWhitening').checked) total += 7500;
+            if (document.getElementById('calcInvisalign').checked) total += 65000;
+            if (document.getElementById('calcImplant').checked) total += 32000;
+
+            let savings = 0;
+            if (hasInsurance) {
+                savings = Math.round(total * 0.40);
+                total = total - savings;
+            }
+
+            const monthlyPayment = total > 0 ? Math.round(total / 12) : 0;
+
+            // Render updated metrics to screen smoothly
+            document.getElementById('calcResultVal').innerText = `₹${total.toLocaleString('en-IN')}`;
+            document.getElementById('calcMonthlyVal').innerText = `₹${monthlyPayment.toLocaleString('en-IN')}/mo`;
+            document.getElementById('calcSavingsVal').innerText = `₹${savings > 0 ? '-' : ''}${savings.toLocaleString('en-IN')}`;
+        }
+
+        // -------------------------------------------------------------
+        // MULTI-STEP RESERVATION WIZARD CONTROLS
+        // -------------------------------------------------------------
+        let wizardStep = 1;
+        let selectedService = "Hygiene Clean & Checkup";
+        let selectedTime = "10:00 AM";
+
+        function highlightServiceCard(cardId) {
+            // Reset all card styles
+            for (let i = 1; i <= 4; i++) {
+                const card = document.getElementById(`serviceCard${i}`);
+                card.className = "p-4 rounded-2xl border-2 border-slate-200 dark:border-slate-700 cursor-pointer flex items-center justify-between group hover:border-brand-500 transition-all";
+                // Reset icons
+                const iconElement = card.querySelector('svg');
+                if (iconElement) {
+                    iconElement.classList.add('text-slate-400');
+                    iconElement.classList.remove('text-brand-500');
+                }
+            }
+
+            // Highlight chosen card
+            const activeCard = document.getElementById(`serviceCard${cardId}`);
+            activeCard.className = "p-4 rounded-2xl border-2 border-brand-500 bg-brand-50/20 dark:bg-brand-900/10 cursor-pointer flex items-center justify-between group transition-all";
+            const activeIcon = activeCard.querySelector('svg');
+            if (activeIcon) {
+                activeIcon.classList.remove('text-slate-400');
+                activeIcon.classList.add('text-brand-500');
+            }
+
+            // Set state variable
+            const selectedRadio = activeCard.querySelector('input[type="radio"]');
+            selectedService = selectedRadio.value;
+        }
+
+        function selectServiceInBooking(serviceType) {
+            // External direct bookings trigger matching state
+            selectedService = serviceType;
+            if (serviceType === 'Cosmetic Design') highlightServiceCard(2);
+            else if (serviceType === 'Dental Implants') highlightServiceCard(4);
+            else if (serviceType === 'Clear Aligners') highlightServiceCard(3);
+            
+            // Auto scroll directly to booking
+            document.getElementById('booking').scrollIntoView();
+        }
+
+        function selectTimeSlot(buttonElement) {
+            // Reset all active classes on date slots
+            const buttons = document.querySelectorAll('.time-slot-btn');
+            buttons.forEach(btn => {
+                btn.className = "time-slot-btn py-2 text-center text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-semibold hover:border-brand-500";
+            });
+
+            // Set current active
+            buttonElement.className = "time-slot-btn py-2 text-center text-xs rounded-lg border bg-brand-500 text-white font-semibold";
+            selectedTime = buttonElement.innerText;
+        }
+
+        function navigateWizard(direction) {
+            if (wizardStep === 1 && direction === 1) {
+                wizardStep = 2;
+            } else if (wizardStep === 2 && direction === 1) {
+                const bookingDateInput = document.getElementById('bookingDate').value;
+                if (!bookingDateInput) {
+                    triggerToastNotification("Please select a target appointment date first.");
+                    return;
+                }
+                wizardStep = 3;
+            } else if (wizardStep === 3 && direction === 1) {
+                const patientName = document.getElementById('patientName').value.trim();
+                const patientPhone = document.getElementById('patientPhone').value.trim();
+                const patientEmail = document.getElementById('patientEmail').value.trim();
+                
+                if (!patientName || !patientPhone || !patientEmail) {
+                    triggerToastNotification("Please complete all fields to test patient confirmation.");
+                    return;
+                }
+
+                // Compile modal metrics
+                document.getElementById('modalService').innerText = selectedService;
+                document.getElementById('modalDentist').innerText = "Dr. Vishal Mhaske";
+                
+                const chosenDate = document.getElementById('bookingDate').value;
+                document.getElementById('modalSlot').innerText = `${chosenDate} at ${selectedTime}`;
+                
+                // Set tracking ID to your agency name
+                document.getElementById('modalId').innerText = "PRISHA-LIVE-DEMO";
+
+                // Show target completion modal
+                document.getElementById('bookingModal').classList.remove('hidden');
+                return;
+            } else if (direction === -1) {
+                wizardStep += direction;
+            }
+
+            updateWizardUI();
+        }
+
+        function updateWizardUI() {
+            // Render visible panels depending on stage
+            document.getElementById('stepPanel1').classList.add('hidden');
+            document.getElementById('stepPanel2').classList.add('hidden');
+            document.getElementById('stepPanel3').classList.add('hidden');
+            
+            document.getElementById(`stepPanel${wizardStep}`).classList.remove('hidden');
+
+            // Reset header indicators
+            const headers = [1, 2, 3];
+            headers.forEach(h => {
+                const head = document.getElementById(`stepHeader${h}`);
+                if (h === wizardStep) {
+                    head.className = "py-4 text-center border-b-4 border-brand-500 text-brand-500 font-bold text-xs sm:text-sm";
+                } else if (h < wizardStep) {
+                    head.className = "py-4 text-center border-b-4 border-emerald-400 text-emerald-500 font-bold text-xs sm:text-sm";
+                } else {
+                    head.className = "py-4 text-center border-b-4 border-transparent text-slate-400 font-bold text-xs sm:text-sm";
+                }
+            });
+
+            // Handle back button visibility & forward navigation text
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            if (wizardStep === 1) {
+                prevBtn.classList.add('hidden');
+                nextBtn.innerText = "Continue to Date Select";
+            } else if (wizardStep === 2) {
+                prevBtn.classList.remove('hidden');
+                nextBtn.innerText = "Continue to Patient Details";
+            } else if (wizardStep === 3) {
+                prevBtn.classList.remove('hidden');
+                nextBtn.innerText = "Complete Booking Reservation";
+            }
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').classList.add('hidden');
+            // Reset Booking Form
+            wizardStep = 1;
+            updateWizardUI();
+            document.getElementById('patientName').value = "";
+            document.getElementById('patientPhone').value = "";
+            document.getElementById('patientEmail').value = "";
+            triggerToastNotification("Test booking flow completed successfully! Try another theme now.");
+        }
+
+        // -------------------------------------------------------------
+        // TESTIMONIAL REVIEW FILTER CHIPS
+        // -------------------------------------------------------------
+        function filterTestimonials(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.className = "filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-all";
+            });
+
+            const activeId = `filterBtn${category.charAt(0).toUpperCase() + category.slice(1)}`;
+            const activeBtn = document.getElementById(activeId);
+            if (activeBtn) {
+                activeBtn.className = "filter-btn px-5 py-2.5 rounded-full text-xs font-bold bg-brand-500 text-white shadow-lg transition-all";
+            }
+
+            const cards = document.querySelectorAll('.testimonial-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // FAQ accordion trigger
+        function toggleFAQ(id) {
+            const content = document.getElementById(`faqContent${id}`);
+            const icon = document.getElementById(`faqIcon${id}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+                icon.classList.add('text-brand-500');
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+                icon.classList.remove('text-brand-500');
+            }
+        }
+
+        // Mobile responsive menu trigger
+        let isMobileMenuOpen = false;
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            isMobileMenuOpen = !isMobileMenuOpen;
+            
+            if (isMobileMenuOpen) {
+                menu.classList.remove('hidden');
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                menu.classList.add('hidden');
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
